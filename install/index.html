@@ -126,16 +126,16 @@
 On most systems Docker can be installed by running <code>wget -qO- https://get.docker.com/ | sh</code>. Learn how to install Docker Compose <a href="https://docs.docker.com/compose/install/">here</a>.</p>
 <ol>
 <li>
-<p>Clone the master branch of the repository
-    <code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</code></p>
+<p>Clone the master branch of the repository</p>
+<p><code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</code></p>
 </li>
 <li>
-<p>Generate a configuration file. Use a FQDN (<code>host.domain.tld</code>) as hostname when asked.
-    <code>./generate_config.sh</code></p>
+<p>Generate a configuration file. Use a FQDN (<code>host.domain.tld</code>) as hostname when asked.</p>
+<p><code>./generate_config.sh</code></p>
 </li>
 <li>
-<p>Change configuration if you want or need to.
-    <code>nano mailcow.conf</code></p>
+<p>Change configuration if you want or need to.</p>
+<p><code>nano mailcow.conf</code></p>
 <p>If you plan to use a reverse proxy, you can, for example, bind HTTPS to 127.0.0.1 on port 8443 and HTTP to 127.0.0.1 on port 8080.</p>
 </li>
 <li>
