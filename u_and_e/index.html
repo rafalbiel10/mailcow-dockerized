@@ -1,192 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Usage & Examples - mailcow: dockerized</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-	<title>Usage & Examples - mailcow: dockerized</title>
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Usage & Examples";
+    var mkdocs_page_input_path = "u_and_e.md";
+    var mkdocs_page_url = "/u_and_e/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
 
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/highlight.css">
-        <link href="../css/base.css" rel="stylesheet">
+<body class="wy-body-for-nav" role="document">
 
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
+  <div class="wy-grid-for-nav">
 
-        
-    </head>
-
-    <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Main title -->
-            <a class="navbar-brand" href="..">mailcow: dockerized</a>
-        </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            <!-- Main navigation -->
-            <ul class="nav navbar-nav">
-            
-            
-                <li >
-                    <a href="..">Overview</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../install/">Installation</a>
-                </li>
-            
-            
-            
-                <li >
-                    <a href="../first_steps/">First Steps</a>
-                </li>
-            
-            
-            
-                <li class="active">
-                    <a href="./">Usage & Examples</a>
-                </li>
-            
-            
-            </ul>
-
-            <!-- Search, Navigation and Repo links -->
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                <li >
-                    <a rel="next" href="../first_steps/">
-                        <i class="fa fa-arrow-left"></i> Previous
-                    </a>
-                </li>
-                <li class="disabled">
-                    <a rel="prev" >
-                        Next <i class="fa fa-arrow-right"></i>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="https://github.com/andryyy/mailcow-dockerized/">
-                        
-                            <i class="fa fa-github"></i>
-                        
-                        GitHub
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
-    </div>
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> mailcow: dockerized</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
 </div>
+      </div>
 
-        <div class="container">
-            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-    
-        <li class="main active"><a href="#anonymize-headers-for-smtp-relayed">Anonymize headers for smtp relayed</a></li>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Overview</a>
         
-    
-        <li class="main "><a href="#backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)</a></li>
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../install/">Installation</a>
         
-            <li><a href="#backup">Backup</a></li>
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../first_steps/">First Steps</a>
         
-            <li><a href="#restore">Restore</a></li>
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Usage & Examples</a>
         
-    
-        <li class="main "><a href="#black-and-whitelist">Black- and Whitelist</a></li>
+            <ul>
+            
+                <li class="toctree-l3"><a href="#anonymize-headers-for-smtp-relayed">Anonymize headers for smtp relayed</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#black-and-whitelist">Black- and Whitelist</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#change-default-theme">Change default theme</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#customize-dockerfiles">Customize Dockerfiles</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#do-not-check-sender-addresses-for-any-domain">Do not check sender addresses for any domain</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#install-roundcube">Install Roundcube</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#learn-spam-and-ham">Learn spam and ham</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#mysql">MySQL</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#read-logs">Read logs</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#redirect-port-80-to-443">Redirect port 80 to 443</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#redis">Redis</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#remove-persistent-data">Remove persistent data</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#reset-admin-password">Reset admin password</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#rspamd">Rspamd</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#rspamd-cli-tools">Rspamd CLI tools</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#adjust-service-configurations">Adjust service configurations</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#tagging">Tagging</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#two-factor-authentication">Two-factor authentication</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#why-bind">Why Bind?</a></li>
+                
+            
+            </ul>
         
-    
-        <li class="main "><a href="#change-default-theme">Change default theme</a></li>
-        
-    
-        <li class="main "><a href="#customize-dockerfiles">Customize Dockerfiles</a></li>
-        
-    
-        <li class="main "><a href="#do-not-check-sender-addresses-for-any-domain">Do not check sender addresses for any domain</a></li>
-        
-    
-        <li class="main "><a href="#install-roundcube">Install Roundcube</a></li>
-        
-            <li><a href="#enable-password-changing">Enable password changing</a></li>
-        
-    
-        <li class="main "><a href="#learn-spam-and-ham">Learn spam and ham</a></li>
-        
-    
-        <li class="main "><a href="#mysql">MySQL</a></li>
-        
-            <li><a href="#connect-to-the-mysql-database">Connect to the MySQL database:</a></li>
-        
-            <li><a href="#backup-the-database">Backup the database:</a></li>
-        
-            <li><a href="#restore-the-database">Restore the database:</a></li>
-        
-    
-        <li class="main "><a href="#read-logs">Read logs</a></li>
-        
-    
-        <li class="main "><a href="#redirect-port-80-to-443">Redirect port 80 to 443</a></li>
-        
-    
-        <li class="main "><a href="#redis">Redis</a></li>
-        
-            <li><a href="#connect-to-redis-key-store">Connect to redis key store:</a></li>
-        
-    
-        <li class="main "><a href="#remove-persistent-data">Remove persistent data</a></li>
-        
-    
-        <li class="main "><a href="#rspamd">Rspamd</a></li>
-        
-            <li><a href="#rspamd-cli-tools">Rspamd CLI tools</a></li>
-        
-    
-        <li class="main "><a href="#adjust-service-configurations">Adjust service configurations</a></li>
-        
-    
-        <li class="main "><a href="#tagging">Tagging</a></li>
-        
-    
-        <li class="main "><a href="#two-factor-authentication">Two-factor authentication</a></li>
-        
-            <li><a href="#yubi-otp">Yubi OTP</a></li>
-        
-            <li><a href="#u2f">U2F</a></li>
-        
-    
-    </ul>
-</div></div>
-            <div class="col-md-9" role="main">
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
 
-<h1 id="anonymize-headers-for-smtp-relayed">Anonymize headers for smtp relayed</h1>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">mailcow: dockerized</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Usage & Examples</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/andryyy/mailcow-dockerized/edit/master/docs/u_and_e.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="anonymize-headers-for-smtp-relayed">Anonymize headers for smtp relayed</h1>
 <p>Save as <code>data/conf/postfix/mailcow_anonymize_headers.pcre</code>:</p>
 <pre><code>/^\s*Received:[^\)]+\)\s+\(Authenticated sender:(.+)/
     REPLACE Received: from localhost (localhost [127.0.0.1]) (Authenticated sender:$1
@@ -203,7 +190,7 @@
 </code></pre>
 
 <h1 id="backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)</h1>
-<h3 id="backup"><strong>Backup</strong></h3>
+<p><strong>Backup</strong></p>
 <p>This line backups the vmail directory to a file backup_vmail.tar.gz in the mailcow root directory:</p>
 <pre><code>cd /path/to/mailcow-dockerized
 source mailcow.conf
@@ -213,7 +200,7 @@ docker run --rm -it -v $(docker inspect --format '{{ range .Mounts }}{{ if eq .D
 
 <p>You can change the path by adjusting ${PWD} (which equals to the current directory) to any path you have write-access to.
 Set the filename <code>backup_vmail.tar.gz</code> to any custom name, but leave the path as it is. Example: <code>[...] tar cvfz /backup/my_own_filename_.tar.gz</code></p>
-<h3 id="restore"><strong>Restore</strong></h3>
+<p><strong>Restore</strong></p>
 <pre><code>cd /path/to/mailcow-dockerized
 source mailcow.conf
 DATE=$(date +&quot;%Y%m%d_%H%M%S&quot;)
@@ -305,7 +292,7 @@ $config['smtp_conn_options'] = array(
 <p>Point your browser to <code>https://myserver/rc/installer</code> and follow the instructions.
 Initialize the database and leave the installer.
 <strong>Delete the directory <code>data/web/rc/installer</code> after a successful installation!</strong></p>
-<h2 id="enable-password-changing">Enable password changing</h2>
+<p><strong>Enable change password function in Roundcube</strong></p>
 <p>Open <code>data/web/rc/config.inc.php</code> and enable the password plugin:</p>
 <pre><code>...
 $config['plugins'] = array(
@@ -337,19 +324,19 @@ This is archived by using the Dovecot plugin "antispam" and a simple parser scri
 <p>The bayes statistics are written to Redis as keys <code>BAYES_HAM</code> and <code>BAYES_SPAM</code>.</p>
 <p>You can also use Rspamds web ui to learn ham and/or spam.</p>
 <h1 id="mysql">MySQL</h1>
-<h3 id="connect-to-the-mysql-database">Connect to the MySQL database:</h3>
+<p><strong>Connect to the MySQL database</strong></p>
 <pre><code>source mailcow.conf
 docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME}
 </code></pre>
 
-<h3 id="backup-the-database">Backup the database:</h3>
+<p><strong>Backup the database</strong></p>
 <pre><code>cd /path/to/mailcow-dockerized
 source mailcow.conf
 DATE=$(date +&quot;%Y%m%d_%H%M%S&quot;)
 docker-compose exec mysql-mailcow mysqldump --default-character-set=utf8mb4 -u${DBUSER} -p${DBPASS} ${DBNAME} &gt; backup_${DBNAME}_${DATE}.sql
 </code></pre>
 
-<h3 id="restore-the-database">Restore the database:</h3>
+<p><strong>Restore the database</strong></p>
 <pre><code>cd /path/to/mailcow-dockerized
 source mailcow.conf
 docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} &lt; backup_file.sql
@@ -373,7 +360,7 @@ docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} &lt; b
 <p>Restart the stack, changed containers will be updated:</p>
 <p><code>docker-compose up -d</code></p>
 <h1 id="redis">Redis</h1>
-<h2 id="connect-to-redis-key-store">Connect to redis key store:</h2>
+<p><strong>Connect to redis key store</strong></p>
 <pre><code>docker-compose exec redis-mailcow redis-cli
 </code></pre>
 
@@ -385,7 +372,9 @@ docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} &lt; b
 <li>Remove volume <code>dkim-vol-1</code> to remove all DKIM keys.</li>
 <li>Remove volume <code>rspamd-vol-1</code> to remove all Rspamd data.</li>
 </ul>
-<p>Running <code>docker-compose down -v</code> will <strong>destroy all mailcow: dockerized volumes</strong> and delete any related containers.Reset mailcow admin to <code>admin:moohoo</code>:</p>
+<p>Running <code>docker-compose down -v</code> will <strong>destroy all mailcow: dockerized volumes</strong> and delete any related containers.</p>
+<h1 id="reset-admin-password">Reset admin password</h1>
+<p>Reset mailcow admin to <code>admin:moohoo</code>:</p>
 <ol>
 <li>Drop admin table</li>
 </ol>
@@ -397,7 +386,7 @@ docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} -e &qu
 <li>Open mailcow UI to auto-init the db</li>
 </ol>
 <h1 id="rspamd">Rspamd</h1>
-<h2 id="rspamd-cli-tools">Rspamd CLI tools</h2>
+<h1 id="rspamd-cli-tools">Rspamd CLI tools</h1>
 <pre><code>docker-compose exec rspamd-mailcow rspamc --help
 docker-compose exec rspamd-mailcow rspamadm --help
 </code></pre>
@@ -480,60 +469,65 @@ docker-compose exec rspamd-mailcow rspamadm --help
 </ol>
 <h1 id="two-factor-authentication">Two-factor authentication</h1>
 <p>So far two methods for TFA are impelemented. Both work with the fantastic <a href="https://www.yubico.com">Yubikey</a>. </p>
-<p>While Yubi OTP needs an active internet connection and an API ID/key, U2F will work with any FIDO U2F USB key out of the box.</p>
+<p>While Yubi OTP needs an active internet connection and an API ID/key, U2F will work with any FIDO U2F USB key out of the box, but cannot only be used when HTTPS is enabled.</p>
 <p>Both methods support mulitple YubiKeys.</p>
 <p>As administrator you are able to temporary disable a domain adminsitrators TFA login until they successfully logged in.</p>
 <p>The key used to login will be displayed in green, while other keys remain grey.</p>
-<h2 id="yubi-otp">Yubi OTP</h2>
+<p><strong>Yubi OTP</strong></p>
 <p>The Yubi API ID and Key will be checked against the Yubico Cloud API. When setting up TFA you will be asked for your personal API account for this key.
 The API ID, API key and the first 12 characters (your YubiKeys ID in modhex) are stored in the MySQL table as secret.</p>
-<h2 id="u2f">U2F</h2>
+<p><strong>U2F</strong></p>
 <p>Only Google Chrome (+derivates) and Opera support U2F authentication to this day natively.
 For Firefox you will need to install the "U2F Support Add-on" as provided on <a href="https://addons.mozilla.org/en-US/firefox/addon/u2f-support-add-on/">mozilla.org</a>.
-U2F works without an internet connection.# Why does mailcow come with a DNS resolver?</p>
+U2F works without an internet connection.</p>
+<h1 id="why-bind">Why Bind?</h1>
 <p>For DNS blacklist lookups and DNSSEC.</p>
 <p>Most systems use either a public or a local caching DNS resolver.
 That's a very bad idea when it comes to filter spam using DNS-based blackhole lists (DNSBL) or similar technics.
 Most if not all providers apply a rate limit based on the DNS resolver that is used to query their service.
-Using a public resolver like Googles 4x8, OpenDNS or any other shared DNS resolver like your ISPs will hit that limit very soon.</p></div>
-        </div>
-
-        <footer class="col-md-12">
-            <hr>
-            
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
-        </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
-        <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-        <script src="../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+Using a public resolver like Googles 4x8, OpenDNS or any other shared DNS resolver like your ISPs will hit that limit very soon.</p>
+              
             </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../first_steps/" class="btn btn-neutral" title="First Steps"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
         </div>
-    </body>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/andryyy/mailcow-dockerized/" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../first_steps/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
 </html>
