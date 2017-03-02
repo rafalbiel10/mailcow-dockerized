@@ -94,9 +94,6 @@
                 <li class="toctree-l3"><a href="#install-roundcube">Install Roundcube</a></li>
                 
             
-                <li class="toctree-l3"><a href="#learn-spam-and-ham">Learn spam and ham</a></li>
-                
-            
                 <li class="toctree-l3"><a href="#mysql">MySQL</a></li>
                 
             
@@ -116,9 +113,6 @@
                 
             
                 <li class="toctree-l3"><a href="#rspamd">Rspamd</a></li>
-                
-            
-                <li class="toctree-l3"><a href="#rspamd-cli-tools">Rspamd CLI tools</a></li>
                 
             
                 <li class="toctree-l3"><a href="#adjust-service-configurations">Adjust service configurations</a></li>
@@ -317,12 +311,6 @@ $config['password_algorithm_prefix'] = '{SSHA256}';
 $config['password_query'] = &quot;UPDATE mailbox SET password = %P WHERE username = %u&quot;;
 </code></pre>
 
-<h1 id="learn-spam-and-ham">Learn spam and ham</h1>
-<p>Rspamd learns mail as spam or ham when you move a message in or out of the junk folder to any mailbox besides trash.
-This is archived by using the Dovecot plugin "antispam" and a simple parser script.</p>
-<p>Rspamd also auto-learns mail when a high or low score is detected (see https://rspamd.com/doc/configuration/statistic.html#autolearning)</p>
-<p>The bayes statistics are written to Redis as keys <code>BAYES_HAM</code> and <code>BAYES_SPAM</code>.</p>
-<p>You can also use Rspamds web ui to learn ham and/or spam.</p>
 <h1 id="mysql">MySQL</h1>
 <p><strong>Connect to the MySQL database</strong></p>
 <pre><code>source mailcow.conf
@@ -386,7 +374,13 @@ docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} -e &qu
 <li>Open mailcow UI to auto-init the db</li>
 </ol>
 <h1 id="rspamd">Rspamd</h1>
-<h1 id="rspamd-cli-tools">Rspamd CLI tools</h1>
+<p><strong>Learn spam and ham</strong>*</p>
+<p>Rspamd learns mail as spam or ham when you move a message in or out of the junk folder to any mailbox besides trash.
+This is archived by using the Dovecot plugin "antispam" and a simple parser script.</p>
+<p>Rspamd also auto-learns mail when a high or low score is detected (see https://rspamd.com/doc/configuration/statistic.html#autolearning)</p>
+<p>The bayes statistics are written to Redis as keys <code>BAYES_HAM</code> and <code>BAYES_SPAM</code>.</p>
+<p>You can also use Rspamds web ui to learn ham and/or spam.</p>
+<p><strong>CLI tools</strong></p>
 <pre><code>docker-compose exec rspamd-mailcow rspamc --help
 docker-compose exec rspamd-mailcow rspamadm --help
 </code></pre>
