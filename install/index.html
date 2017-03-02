@@ -127,23 +127,26 @@
 <ul>
 <li>Clone the master branch of the repository</li>
 </ul>
-<p>```git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</p>
-<pre><code>
-- Generate a configuration file. Use a FQDN (`host.domain.tld`) as hostname when asked.
+<pre><code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized
+</code></pre>
 
-```./generate_config.sh
+<ul>
+<li>Generate a configuration file. Use a FQDN (<code>host.domain.tld</code>) as hostname when asked.</li>
+</ul>
+<pre><code>./generate_config.sh
 </code></pre>
 
 <ul>
 <li>Change configuration if you want or need to.</li>
 </ul>
-<p>```nano mailcow.conf</p>
-<pre><code>
-- If you plan to use a reverse proxy, you can, for example, bind HTTPS to 127.0.0.1 on port 8443 and HTTP to 127.0.0.1 on port 8080.
+<pre><code>nano mailcow.conf
+</code></pre>
 
-- Run the composer file.
-
-```docker-compose up -d
+<p>If you plan to use a reverse proxy, you can, for example, bind HTTPS to 127.0.0.1 on port 8443 and HTTP to 127.0.0.1 on port 8080.</p>
+<ul>
+<li>Run the composer file.</li>
+</ul>
+<pre><code>docker-compose up -d
 </code></pre>
 
 <p>Done!</p>
