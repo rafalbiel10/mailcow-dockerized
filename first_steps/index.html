@@ -168,7 +168,7 @@ ln $(readlink -f /etc/letsencrypt/live/${MAILCOW_HOSTNAME}/privkey.pem) data/ass
 </code></pre>
 
 <ol>
-<li>Restart containers which use the certificate:</li>
+<li>Restart affected containers:</li>
 </ol>
 <pre><code>docker-compose restart postfix-mailcow dovecot-mailcow nginx-mailcow
 </code></pre>
@@ -198,13 +198,14 @@ ln $(readlink -f /etc/letsencrypt/live/${MAILCOW_HOSTNAME}/privkey.pem) data/ass
 <h1 id="optional-reverse-proxy">Optional: Reverse proxy</h1>
 <p>You don't need to change the Nginx site that comes with mailcow: dockerized.
 mailcow: dockerized trusts the default gateway IP 172.22.1.1 as proxy. This is very important to control access to Rspamd's web UI.</p>
-<p>Make sure you change HTTP_BIND and HTTPS_BIND to a local address and set the ports accordingly, for example:</p>
+<p>Make sure you change HTTP_BIND and HTTPS_BIND in <code>mailcow.conf</code> to a local address and set the ports accordingly, for example:</p>
 <pre><code>HTTP_BIND=127.0.0.1
 HTTP_PORT=8080
 HTTPS_PORT=127.0.0.1
 HTTPS_PORT=8443
 </code></pre>
 
+<p>Recreate affected containers by running <code>docker-compose up -d</code>.</p>
 <p>Configure your local webserver as reverse proxy:</p>
 <p><strong>Apache 2.4</strong></p>
 <pre><code>&lt;VirtualHost *:443&gt;
