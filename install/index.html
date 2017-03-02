@@ -123,34 +123,41 @@
               
                 <h1 id="install-mailcow">Install mailcow</h1>
 <ol>
+<li>You need Docker.</li>
+</ol>
+<p>Most systems can install Docker by running <code>wget -qO- https://get.docker.com/ | sh</code>.</p>
+<ol>
 <li>
-<p>You need Docker.</p>
-<ul>
-<li>Most systems can install Docker by running <code>wget -qO- https://get.docker.com/ | sh</code></li>
-</ul>
+<p>You need Docker Compose
+Learn <a href="https://docs.docker.com/compose/install/">how to install Docker Compose</a>.</p>
 </li>
 <li>
-<p>You need Docker Compose.</p>
-<ul>
-<li>Learn <a href="https://docs.docker.com/compose/install/">how to install Docker Compose</a></li>
-</ul>
-</li>
-<li>
-<p>Clone the master branch of the repository and run <code>./generate_config.sh</code> to generate a file "mailcow.conf". You will be asked for a hostname and a timezone:</p>
-<ul>
-<li><code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</code></li>
-<li><code>./generate_config.sh</code></li>
-<li>Open and check "mailcow.conf" if you need or want to make changes to ports (for example changing the default HTTPS port)</li>
-</ul>
-</li>
-<li>
-<p>Run the composer file.</p>
-<ul>
-<li><code>docker-compose up -d</code></li>
-</ul>
+<p>Clone the master branch of the repository</p>
 </li>
 </ol>
-<p>Done.</p>
+<pre><code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized
+</code></pre>
+
+<ol>
+<li>Generate a configuration file. Use a FQDN (<code>host.domain.tld</code>) as hostname when asked.</li>
+</ol>
+<pre><code>./generate_config.sh
+</code></pre>
+
+<ol>
+<li>Change configuration if you want or need to.</li>
+</ol>
+<pre><code>nano mailcow.conf
+</code></pre>
+
+<p>If you plan to use a reverse proxy, you can, for example, bind HTTPS to 127.0.0.1 on port 8443 and HTTP to 127.0.0.1 on port 8080.</p>
+<ol>
+<li>Run the composer file.</li>
+</ol>
+<pre><code>docker-compose up -d
+</code></pre>
+
+<p>Done!</p>
 <p>You can now access <strong>https://${MAILCOW_HOSTNAME}</strong> with the default credentials <code>admin</code> + password <code>moohoo</code>.</p>
 <p>It may take a while for MySQL to warm up, so please wait half a minute.</p>
 <p>The database will be initialized right after a connection to MySQL can be established.</p>

@@ -85,6 +85,9 @@
                 <li class="toctree-l3"><a href="#black-and-whitelist">Black and Whitelist</a></li>
                 
             
+                <li class="toctree-l3"><a href="#change-default-language">Change default language</a></li>
+                
+            
                 <li class="toctree-l3"><a href="#change-ui-theme">Change UI theme</a></li>
                 
             
@@ -212,6 +215,13 @@ docker run --rm -it -v $(docker inspect --format '{{ range .Mounts }}{{ if eq .D
 <h1 id="black-and-whitelist">Black and Whitelist</h1>
 <p>Edit a domain as (domain) administrator to add an item to the filter table.</p>
 <p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. </p>
+<h1 id="change-default-language">Change default language</h1>
+<p>Change <code>data/conf/sogo/sogo.conf</code> and replace "English" by your prefered language.</p>
+<p>Create a file <code>data/web/inc/vars.local.inc.php</code> and add "DEFAULT_LANG" with either "en", "pt", "de" or "nl":</p>
+<pre><code>&lt;?php
+$DEFAULT_LANG = &quot;de&quot;;
+</code></pre>
+
 <h1 id="change-ui-theme">Change UI theme</h1>
 <p>mailcow uses <a href="http://getbootstrap.com/">Bootstrap</a>, a HTML, CSS, and JS framework.</p>
 <p>Open or create the file <code>data/web/inc/vars.local.inc.php</code> and change <code>DEFAULT_THEME</code> to either cerulean, cosmo, custom, cyborg, darkly, flatly, journal, paper, readable, sandstone, simplex, slate, spacelab, superhero, united or yeti (see https://bootswatch.com/):</p>
@@ -470,7 +480,7 @@ docker-compose exec rspamd-mailcow rspamadm --help
 </ol>
 <h1 id="two-factor-authentication">Two-factor authentication</h1>
 <p>So far two methods for TFA are impelemented. Both work with the fantastic <a href="https://www.yubico.com">Yubikey</a>. </p>
-<p>While Yubi OTP needs an active internet connection and an API ID/key, U2F will work with any FIDO U2F USB key out of the box, but cannot only be used when HTTPS is enabled.</p>
+<p>While Yubi OTP needs an active internet connection and an API ID and key, U2F will work with any FIDO U2F USB key out of the box, but can only be used when mailcow is accessed over HTTPS.</p>
 <p>Both methods support mulitple YubiKeys.</p>
 <p>As administrator you are able to temporary disable a domain adminsitrators TFA login until they successfully logged in.</p>
 <p>The key used to login will be displayed in green, while other keys remain grey.</p>
