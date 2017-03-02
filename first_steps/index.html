@@ -132,20 +132,12 @@
 </ul>
 <p><strong>Obtain multi-SAN certificate by Let's Encrypt</strong> </p>
 <p>This is just an example of how to obtain certificates with certbot. There are several methods!</p>
-<ol>
-<li>Get the certbot client:</li>
-</ol>
-<pre><code>    wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot
+<p>1. Get the certbot client:</p>
+<pre><code>wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot
 </code></pre>
 
-<ol>
-<li>
-<p>Make sure you set <code>HTTP_BIND=0.0.0.0</code> in <code>mailcow.conf</code> or setup a reverse proxy to enable connections to port 80. If you changed HTTP_BIND, then restart Nginx: <code>docker-compose restart nginx-mailcow</code>.</p>
-</li>
-<li>
-<p>Request the certificate with the webroot method:</p>
-</li>
-</ol>
+<p>2. Make sure you set <code>HTTP_BIND=0.0.0.0</code> in <code>mailcow.conf</code> or setup a reverse proxy to enable connections to port 80. If you changed HTTP_BIND, then restart Nginx: <code>docker-compose restart nginx-mailcow</code>.</p>
+<p>3. Request the certificate with the webroot method:</p>
 <pre><code>    cd /path/to/git/clone/mailcow-dockerized
     source mailcow.conf
     certbot certonly \
@@ -158,36 +150,32 @@
             --agree-tos
 </code></pre>
 
-<ol>
-<li>
-<p>Create hard links to the full path of the new certificates. Assuming you are still in the mailcow root folder:</p>
-<p><code>mv data/assets/ssl/cert.{pem,pem.backup}
+<p>4. Create hard links to the full path of the new certificates. Assuming you are still in the mailcow root folder:</p>
+<pre><code>mv data/assets/ssl/cert.{pem,pem.backup}
 mv data/assets/ssl/key.{pem,pem.backup}
 ln $(readlink -f /etc/letsencrypt/live/${MAILCOW_HOSTNAME}/fullchain.pem) data/assets/ssl/cert.pem
-ln $(readlink -f /etc/letsencrypt/live/${MAILCOW_HOSTNAME}/privkey.pem) data/assets/ssl/key.pem</code></p>
-</li>
-<li>
-<p>Restart affected containers:</p>
-<p><code>docker-compose restart postfix-mailcow dovecot-mailcow nginx-mailcow</code></p>
-</li>
-</ol>
+ln $(readlink -f /etc/letsencrypt/live/${MAILCOW_HOSTNAME}/privkey.pem) data/assets/ssl/key.pem
+</code></pre>
+
+<p>5. Restart affected containers:</p>
+<pre><code>docker-compose restart postfix-mailcow dovecot-mailcow nginx-mailcow
+</code></pre>
+
 <p>When renewing certificates, run the last two steps (link + restart) as post-hook in a script.</p>
 <h1 id="rspamd-web-ui">Rspamd Web UI</h1>
 <p>At first you may want to setup Rspamds web interface which provides some useful features and information.</p>
-<ol>
-<li>
-<p>Generate a Rspamd controller password hash:</p>
-<p><code>docker-compose exec rspamd-mailcow rspamadm pw</code></p>
-</li>
-<li>
-<p>Replace the default hash in <code>data/conf/rspamd/override.d/worker-controller.inc</code> by your newly generated:</p>
-<p><code>enable_password = "myhash";</code></p>
-</li>
-<li>
-<p>Restart rspamd:</p>
-<p><code>docker-compose restart rspamd-mailcow</code></p>
-</li>
-</ol>
+<p>1. Generate a Rspamd controller password hash:</p>
+<pre><code>docker-compose exec rspamd-mailcow rspamadm pw
+</code></pre>
+
+<p>2. Replace the default hash in <code>data/conf/rspamd/override.d/worker-controller.inc</code> by your newly generated:</p>
+<pre><code>enable_password = &quot;myhash&quot;;
+</code></pre>
+
+<p>3. Restart rspamd:</p>
+<pre><code>docker-compose restart rspamd-mailcow
+</code></pre>
+
 <p>Open https://${MAILCOW_HOSTNAME}/rspamd in a browser and login!</p>
 <h1 id="optional-reverse-proxy">Optional: Reverse proxy</h1>
 <p>You don't need to change the Nginx site that comes with mailcow: dockerized.
