@@ -392,7 +392,7 @@ docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} -e &qu
 This is archived by using the Dovecot plugin "antispam" and a simple parser script.</p>
 <p>Rspamd also auto-learns mail when a high or low score is detected (see https://rspamd.com/doc/configuration/statistic.html#autolearning)</p>
 <p>The bayes statistics are written to Redis as keys <code>BAYES_HAM</code> and <code>BAYES_SPAM</code>.</p>
-<p>You can also use Rspamds web ui to learn ham and/or spam.</p>
+<p>You can also use Rspamd's web ui to learn ham and/or spam.</p>
 <p><strong>CLI tools</strong></p>
 <pre><code>docker-compose exec rspamd-mailcow rspamc --help
 docker-compose exec rspamd-mailcow rspamadm --help
