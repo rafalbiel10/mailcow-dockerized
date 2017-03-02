@@ -133,26 +133,32 @@
 <p><strong>Obtain multi-SAN certificate by Let's Encrypt</strong> </p>
 <p>This is just an example of how to obtain certificates with certbot. There are several methods!</p>
 <ol>
-<li>
-<p>Get the certbot client:</p>
-<p><code>wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot</code></p>
-</li>
+<li>Get the certbot client:</li>
+</ol>
+<pre><code>    wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot
+</code></pre>
+
+<ol>
 <li>
 <p>Make sure you set <code>HTTP_BIND=0.0.0.0</code> in <code>mailcow.conf</code> or setup a reverse proxy to enable connections to port 80. If you changed HTTP_BIND, then restart Nginx: <code>docker-compose restart nginx-mailcow</code>.</p>
 </li>
 <li>
 <p>Request the certificate with the webroot method:</p>
-<p><code>cd /path/to/git/clone/mailcow-dockerized
-source mailcow.conf
-certbot certonly \
-        --webroot \
-        -w ${PWD}/data/web \
-        -d ${MAILCOW_HOSTNAME} \
-        -d autodiscover.example.org \
-        -d autoconfig.example.org \
-        --email you@example.org \
-        --agree-tos</code></p>
 </li>
+</ol>
+<pre><code>    cd /path/to/git/clone/mailcow-dockerized
+    source mailcow.conf
+    certbot certonly \
+            --webroot \
+            -w ${PWD}/data/web \
+            -d ${MAILCOW_HOSTNAME} \
+            -d autodiscover.example.org \
+            -d autoconfig.example.org \
+            --email you@example.org \
+            --agree-tos
+</code></pre>
+
+<ol>
 <li>
 <p>Create hard links to the full path of the new certificates. Assuming you are still in the mailcow root folder:</p>
 <p><code>mv data/assets/ssl/cert.{pem,pem.backup}
