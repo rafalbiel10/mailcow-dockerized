@@ -141,16 +141,16 @@
 </code></pre>
 
 <p>3. Request the certificate with the webroot method:</p>
-<pre><code>    cd /path/to/git/clone/mailcow-dockerized
-    source mailcow.conf
-    certbot certonly \
-            --webroot \
-            -w ${PWD}/data/web \
-            -d ${MAILCOW_HOSTNAME} \
-            -d autodiscover.example.org \
-            -d autoconfig.example.org \
-            --email you@example.org \
-            --agree-tos
+<pre><code>cd /path/to/git/clone/mailcow-dockerized
+source mailcow.conf
+certbot certonly \
+    --webroot \
+    -w ${PWD}/data/web \
+    -d ${MAILCOW_HOSTNAME} \
+    -d autodiscover.example.org \
+    -d autoconfig.example.org \
+    --email you@example.org \
+    --agree-tos
 </code></pre>
 
 <p>4. Create hard links to the full path of the new certificates. Assuming you are still in the mailcow root folder:</p>
@@ -183,62 +183,57 @@ ln $(readlink -f /etc/letsencrypt/live/${MAILCOW_HOSTNAME}/privkey.pem) data/ass
 <h1 id="optional-reverse-proxy">Optional: Reverse proxy</h1>
 <p>You don't need to change the Nginx site that comes with mailcow: dockerized.
 mailcow: dockerized trusts the default gateway IP 172.22.1.1 as proxy. This is very important to control access to Rspamd's web UI.</p>
-<ol>
-<li>
-<p>Make sure you change HTTP_BIND and HTTPS_BIND in <code>mailcow.conf</code> to a local address and set the ports accordingly, for example:</p>
-<p><code>HTTP_BIND=127.0.0.1
+<p>1. Make sure you change HTTP_BIND and HTTPS_BIND in <code>mailcow.conf</code> to a local address and set the ports accordingly, for example:</p>
+<pre><code>HTTP_BIND=127.0.0.1
 HTTP_PORT=8080
 HTTPS_PORT=127.0.0.1
-HTTPS_PORT=8443</code></p>
+HTTPS_PORT=8443
+</code></pre>
+
 <p>Recreate affected containers by running <code>docker-compose up -d</code>.</p>
-</li>
-<li>
-<p>Configure your local webserver as reverse proxy:</p>
-<p><strong>Apache 2.4</strong>
-```
-<VirtualHost *:443>
+<p>2. Configure your local webserver as reverse proxy:
+<strong>Apache 2.4</strong></p>
+<pre><code>&lt;VirtualHost *:443&gt;
     ServerName mail.example.org
     ServerAlias autodiscover.example.org
-    ServerAlias autoconfig.example.org</p>
-<pre><code>[...]
-# You should proxy to a plain HTTP session to offload SSL processing
-ProxyPass / http://127.0.0.1:8080
-ProxyPassReverse / http://127.0.0.1:8080
-ProxyPreserveHost On
-your-ssl-configuration-here
-[...]
+    ServerAlias autoconfig.example.org
 
-# If you plan to proxy to a HTTPS host:
-#SSLProxyEngine On
+    [...]
+    # You should proxy to a plain HTTP session to offload SSL processing
+    ProxyPass / http://127.0.0.1:8080
+    ProxyPassReverse / http://127.0.0.1:8080
+    ProxyPreserveHost On
+    your-ssl-configuration-here
+    [...]
 
-# If you plan to proxy to an untrusted HTTPS host:
-#SSLProxyVerify none
-#SSLProxyCheckPeerCN off
-#SSLProxyCheckPeerName off
-#SSLProxyCheckPeerExpire off
+    # If you plan to proxy to a HTTPS host:
+    #SSLProxyEngine On
+
+    # If you plan to proxy to an untrusted HTTPS host:
+    #SSLProxyVerify none
+    #SSLProxyCheckPeerCN off
+    #SSLProxyCheckPeerName off
+    #SSLProxyCheckPeerExpire off
+&lt;/VirtualHost&gt;
 </code></pre>
-<p></VirtualHost>
-```</p>
-<p><strong>Nginx</strong>
-```
-server {
+
+<p><strong>Nginx</strong></p>
+<pre><code>server {
     listen 443;
-    server_name mail.example.org autodiscover.example.org autoconfig.example.org;</p>
-<pre><code>[...]
-your-ssl-configuration-here
-location / {
-    proxy_pass http://127.0.0.1:8080;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
+    server_name mail.example.org autodiscover.example.org autoconfig.example.org;
+
+    [...]
+    your-ssl-configuration-here
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    [...]
 }
-[...]
 </code></pre>
-<p>}
-```</p>
-</li>
-</ol>
               
             </div>
           </div>

@@ -376,16 +376,12 @@ docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} &lt; b
 <p>Running <code>docker-compose down -v</code> will <strong>destroy all mailcow: dockerized volumes</strong> and delete any related containers.</p>
 <h1 id="reset-admin-password">Reset admin password</h1>
 <p>Reset mailcow admin to <code>admin:moohoo</code>:</p>
-<ol>
-<li>
-<p>Drop admin table</p>
-<p><code>source mailcow.conf
-docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} -e "DROP TABLE admin;"</code></p>
-<ol>
-<li>Open mailcow UI to auto-init the db</li>
-</ol>
-</li>
-</ol>
+<p>1. Drop admin table</p>
+<pre><code>source mailcow.conf
+docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} -e &quot;DROP TABLE admin;&quot;
+</code></pre>
+
+<p>2. Open mailcow UI to auto-init the db</p>
 <h1 id="rspamd">Rspamd</h1>
 <p><strong>Learn spam and ham</strong>*</p>
 <p>Rspamd learns mail as spam or ham when you move a message in or out of the junk folder to any mailbox besides trash.
@@ -473,10 +469,8 @@ docker-compose exec rspamd-mailcow rspamadm --help
 
 <h1 id="tagging">Tagging</h1>
 <p>Mailbox users can tag their mail address like in <code>me+facebook@example.org</code> and choose between to setups to handle this tag:</p>
-<ol>
-<li>Move this message to a subfolder "facebook" (will be created lower case if not existing)</li>
-<li>Prepend the tag to the subject: "[facebook] Subject"</li>
-</ol>
+<p>1. Move this message to a subfolder "facebook" (will be created lower case if not existing)</p>
+<p>2. Prepend the tag to the subject: "[facebook] Subject"</p>
 <h1 id="two-factor-authentication">Two-factor authentication</h1>
 <p>So far two methods for TFA are impelemented. Both work with the fantastic <a href="https://www.yubico.com">Yubikey</a>. </p>
 <p>While Yubi OTP needs an active internet connection and an API ID and key, U2F will work with any FIDO U2F USB key out of the box, but can only be used when mailcow is accessed over HTTPS.</p>
