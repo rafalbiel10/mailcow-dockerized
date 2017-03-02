@@ -73,22 +73,25 @@
         
             <ul>
             
-                <li class="toctree-l3"><a href="#anonymize-headers-for-smtp-relayed">Anonymize headers for smtp relayed</a></li>
+                <li class="toctree-l3"><a href="#anonymize-headers">Anonymize headers</a></li>
                 
             
                 <li class="toctree-l3"><a href="#backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)</a></li>
                 
             
-                <li class="toctree-l3"><a href="#black-and-whitelist">Black- and Whitelist</a></li>
+                <li class="toctree-l3"><a href="#docker-compose-bash-completion">Docker Compose Bash completion</a></li>
                 
             
-                <li class="toctree-l3"><a href="#change-default-theme">Change default theme</a></li>
+                <li class="toctree-l3"><a href="#black-and-whitelist">Black and Whitelist</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#change-ui-theme">Change UI theme</a></li>
                 
             
                 <li class="toctree-l3"><a href="#customize-dockerfiles">Customize Dockerfiles</a></li>
                 
             
-                <li class="toctree-l3"><a href="#do-not-check-sender-addresses-for-any-domain">Do not check sender addresses for any domain</a></li>
+                <li class="toctree-l3"><a href="#disable-sender-addresses-verification">Disable sender addresses verification</a></li>
                 
             
                 <li class="toctree-l3"><a href="#install-roundcube">Install Roundcube</a></li>
@@ -167,7 +170,7 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="anonymize-headers-for-smtp-relayed">Anonymize headers for smtp relayed</h1>
+                <h1 id="anonymize-headers">Anonymize headers</h1>
 <p>Save as <code>data/conf/postfix/mailcow_anonymize_headers.pcre</code>:</p>
 <pre><code>/^\s*Received:[^\)]+\)\s+\(Authenticated sender:(.+)/
     REPLACE Received: from localhost (localhost [127.0.0.1]) (Authenticated sender:$1
@@ -201,14 +204,15 @@ DATE=$(date +&quot;%Y%m%d_%H%M%S&quot;)
 docker run --rm -it -v $(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination &quot;/var/vmail&quot; }}{{ .Name }}{{ end }}{{ end }}' $(docker-compose ps -q dovecot-mailcow)):/vmail -v ${PWD}:/backup debian:jessie tar xvfz /backup/backup_vmail.tar.gz
 </code></pre>
 
+<h1 id="docker-compose-bash-completion">Docker Compose Bash completion</h1>
 <p>For the tab-tab... :-)</p>
 <pre><code>curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
 </code></pre>
 
-<h1 id="black-and-whitelist">Black- and Whitelist</h1>
+<h1 id="black-and-whitelist">Black and Whitelist</h1>
 <p>Edit a domain as (domain) administrator to add an item to the filter table.</p>
 <p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. </p>
-<h1 id="change-default-theme">Change default theme</h1>
+<h1 id="change-ui-theme">Change UI theme</h1>
 <p>mailcow uses <a href="http://getbootstrap.com/">Bootstrap</a>, a HTML, CSS, and JS framework.</p>
 <p>Open or create the file <code>data/web/inc/vars.local.inc.php</code> and change <code>DEFAULT_THEME</code> to either cerulean, cosmo, custom, cyborg, darkly, flatly, journal, paper, readable, sandstone, simplex, slate, spacelab, superhero, united or yeti (see https://bootswatch.com/):</p>
 <pre><code>&lt;?php
@@ -224,7 +228,7 @@ $DEFAULT_THEME = &quot;paper&quot;;
 <pre><code>docker-compose up -d
 </code></pre>
 
-<h1 id="do-not-check-sender-addresses-for-any-domain">Do not check sender addresses for any domain</h1>
+<h1 id="disable-sender-addresses-verification">Disable sender addresses verification</h1>
 <p>This option is not best-practice and should only be implemented when there is no other option available to archive whatever you are trying to do.</p>
 <p>Simply create a file <code>data/conf/postfix/check_sender_access</code> and enter the following content:</p>
 <pre><code>user-to-allow-everything@example.com OK
@@ -454,7 +458,10 @@ docker-compose exec rspamd-mailcow rspamadm --help
 
 </code></pre>
 
-<p>Just change the according configuration file on the host and restart the related service: <code>docker-compose restart service-mailcow</code></p>
+<p>Just change the according configuration file on the host and restart the related service:</p>
+<pre><code>docker-compose restart service-mailcow
+</code></pre>
+
 <h1 id="tagging">Tagging</h1>
 <p>Mailbox users can tag their mail address like in <code>me+facebook@example.org</code> and choose between to setups to handle this tag:</p>
 <ol>
