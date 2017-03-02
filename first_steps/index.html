@@ -136,7 +136,10 @@
 <pre><code>wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot
 </code></pre>
 
-<p>2. Make sure you set <code>HTTP_BIND=0.0.0.0</code> in <code>mailcow.conf</code> or setup a reverse proxy to enable connections to port 80. If you changed HTTP_BIND, then restart Nginx: <code>docker-compose restart nginx-mailcow</code>.</p>
+<p>2. Make sure you set <code>HTTP_BIND=0.0.0.0</code> in <code>mailcow.conf</code> or setup a reverse proxy to enable connections to port 80. If you changed HTTP_BIND, then restart Nginx:</p>
+<pre><code>docker-compose restart nginx-mailcow
+</code></pre>
+
 <p>3. Request the certificate with the webroot method:</p>
 <pre><code>    cd /path/to/git/clone/mailcow-dockerized
     source mailcow.conf
