@@ -124,32 +124,28 @@
                 <h1 id="install-mailcow">Install mailcow</h1>
 <ol>
 <li>
-<p>You need Docker.</p>
-<p>Most systems can install Docker by running <code>wget -qO- https://get.docker.com/ | sh</code>.</p>
+<p>You need Docker. Most systems can install Docker by running <code>wget -qO- https://get.docker.com/ | sh</code>.</p>
 </li>
 <li>
-<p>You need Docker Compose</p>
-<p>Learn <a href="https://docs.docker.com/compose/install/">how to install Docker Compose</a>.</p>
+<p>You need Docker Compose. Learn <a href="https://docs.docker.com/compose/install/">how to install Docker Compose</a>.</p>
 </li>
 <li>
-<p>Clone the master branch of the repository</p>
-<p><code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</code></p>
+<p>Clone the master branch of the repository
+    <code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</code></p>
 </li>
 <li>
-<p>Generate a configuration file. Use a FQDN (<code>host.domain.tld</code>) as hostname when asked.</p>
-<p><code>./generate_config.sh</code></p>
+<p>Generate a configuration file. Use a FQDN (<code>host.domain.tld</code>) as hostname when asked.
+    <code>./generate_config.sh</code></p>
 </li>
 <li>
-<p>Change configuration if you want or need to.</p>
-<p><code>nano mailcow.conf</code></p>
+<p>Change configuration if you want or need to.
+    <code>nano mailcow.conf</code></p>
 </li>
 </ol>
 <p>If you plan to use a reverse proxy, you can, for example, bind HTTPS to 127.0.0.1 on port 8443 and HTTP to 127.0.0.1 on port 8080.</p>
 <ol>
-<li>
-<p>Run the composer file.</p>
-<p><code>docker-compose up -d</code></p>
-</li>
+<li>Run the composer file.
+    <code>docker-compose up -d</code></li>
 </ol>
 <p>Done!</p>
 <p>You can now access <strong>https://${MAILCOW_HOSTNAME}</strong> with the default credentials <code>admin</code> + password <code>moohoo</code>.</p>
