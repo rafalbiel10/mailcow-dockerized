@@ -64,7 +64,7 @@
             
                 <li class="toctree-l3"><a href="#update-mailcow">Update mailcow</a></li>
                 
-                    <li><a class="toctree-l4" href="#use-dev-branch-not-recommended">Use dev branch (not recommended)</a></li>
+                    <li><a class="toctree-l4" href="#development-branch-not-recommended">Development branch (not recommended)</a></li>
                 
             
             </ul>
@@ -176,8 +176,8 @@ docker-compose up -d --remove-orphans
 docker-compose restart
 </code></pre>
 
-<h2 id="use-dev-branch-not-recommended">Use dev branch (not recommended)</h2>
-<p>When you checkout the dev branch, you will most likely end up using the "master" images with code base of "dev".
+<h2 id="development-branch-not-recommended">Development branch (not recommended)</h2>
+<p>When you checkout the "dev" git branch, you will most likely end up using the "master" images with code base of "dev".
 If there were critical changes to the images in dev, mailcow will not work.</p>
 <p>But you can still build the images by yourself:</p>
 <pre><code>docker-compose up -d --build
