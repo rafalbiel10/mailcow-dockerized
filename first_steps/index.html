@@ -75,6 +75,9 @@
                 <li class="toctree-l3"><a href="#optional-reverse-proxy">Optional: Reverse proxy</a></li>
                 
             
+                <li class="toctree-l3"><a href="#sender-and-receiver-model">Sender and receiver model</a></li>
+                
+            
             </ul>
         
     </li>
@@ -191,8 +194,8 @@ HTTPS_PORT=8443
 </code></pre>
 
 <p>Recreate affected containers by running <code>docker-compose up -d</code>.</p>
-<p>2. Configure your local webserver as reverse proxy:
-<strong>Apache 2.4</strong></p>
+<p>2. Configure your local webserver as reverse proxy:</p>
+<p><strong>Apache 2.4</strong></p>
 <pre><code>&lt;VirtualHost *:443&gt;
     ServerName mail.example.org
     ServerAlias autodiscover.example.org
@@ -234,6 +237,33 @@ HTTPS_PORT=8443
     [...]
 }
 </code></pre>
+
+<h1 id="sender-and-receiver-model">Sender and receiver model</h1>
+<p>When a mailbox is created, a user is allowed to send mail from and receive mail for his own mailbox address.</p>
+<pre><code>Mailbox me@example.org is created. example.org is a primary domain. 
+Note: a mailbox cannot be created in an alias domain.
+
+me@example.org is only known as me@example.org.
+me@example.org is allowed to send as me@example.org.
+</code></pre>
+<p>We can add an alias domain for example.org:</p>
+<pre><code>Alias domain alias.com is added and assigned to primary domain example.org.
+me@example.org is now known as me@example.org and me@alias.com.
+me@example.org is now allowed to send as me@example.org and me@alias.com.
+</code></pre>
+<p>We can add aliases for a mailbox to receive mail for and to send from this new address.</p>
+<p>It is important to know, that you are not able to receive mail for <code>my-alias@my-alias-domain.tld</code>. You would need to create this particular alias.</p>
+<pre><code>me@example.org is assigned the alias alias@example.org
+me@example.org is now known as alias@example.org, me@alias.com, alias@example.org
+
+me@example.org is NOT known as alias@alias.com.
+</code></pre>
+<p>Administrators and domain administrators can edit mailboxes to allow specific users to send as other mailbox users ("delegate" them).</p>
+<p>You can choose between mailbox users or completely disable the sender check for domains.</p>
+<p><strong>SOGo "mail from" addresses</strong></p>
+<p>Mailbox users can, obviously, select their own mailbox address, as well as all alias addresses and aliases that exist through alias domains.</p>
+<p>If you want to select another <em>existing</em> mailbox user as your "mail from" address, this user has to delegate you access through SOGo (see SOGo documentation). Moreover a mailcow (domain) administrator
+needs to grant you access as described above.</p>
               
             </div>
           </div>
