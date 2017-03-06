@@ -258,6 +258,26 @@
     Backup and restore maildir (simple tar file)
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backup" title="Backup" class="md-nav__link">
+    Backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore" title="Restore" class="md-nav__link">
+    Restore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -307,6 +327,19 @@
     Install Roundcube
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-change-password-function-in-roundcube" title="Enable change password function in Roundcube" class="md-nav__link">
+    Enable change password function in Roundcube
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -314,11 +347,38 @@
     MySQL
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#connect" title="Connect" class="md-nav__link">
+    Connect
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#backup_1" title="Backup" class="md-nav__link">
+    Backup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restore_1" title="Restore" class="md-nav__link">
+    Restore
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#read-logs" title="Read logs" class="md-nav__link">
-    Read logs
+  <a href="#debugging" title="Debugging" class="md-nav__link">
+    Debugging
   </a>
   
 </li>
@@ -334,6 +394,19 @@
   <a href="#redis" title="Redis" class="md-nav__link">
     Redis
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client" title="Client" class="md-nav__link">
+    Client
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -356,6 +429,26 @@
     Rspamd
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learn-spam-and-ham" title="Learn spam and ham" class="md-nav__link">
+    Learn spam and ham
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cli-tools" title="CLI tools" class="md-nav__link">
+    CLI tools
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -376,6 +469,26 @@
   <a href="#two-factor-authentication" title="Two-factor authentication" class="md-nav__link">
     Two-factor authentication
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#yubi-otp" title="Yubi OTP" class="md-nav__link">
+    Yubi OTP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u2f" title="U2F" class="md-nav__link">
+    U2F
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -421,7 +534,7 @@
 
 
 <h2 id="backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)<a class="headerlink" href="#backup-and-restore-maildir-simple-tar-file" title="Permanent link">&para;</a></h2>
-<p><strong>Backup</strong></p>
+<h3 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h3>
 <p>This line backups the vmail directory to a file backup_vmail.tar.gz in the mailcow root directory:</p>
 <div class="codehilite"><pre><span></span>cd /path/to/mailcow-dockerized
 source mailcow.conf
@@ -432,7 +545,7 @@ docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if e
 
 <p>You can change the path by adjusting ${PWD} (which equals to the current directory) to any path you have write-access to.
 Set the filename <code>backup_vmail.tar.gz</code> to any custom name, but leave the path as it is. Example: <code>[...] tar cvfz /backup/my_own_filename_.tar.gz</code></p>
-<p><strong>Restore</strong></p>
+<h3 id="restore">Restore<a class="headerlink" href="#restore" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>cd /path/to/mailcow-dockerized
 source mailcow.conf
 DATE=$(date +&quot;%Y%m%d_%H%M%S&quot;)
@@ -541,9 +654,9 @@ chown -R root: rc/
 
 
 <p>Point your browser to <code>https://myserver/rc/installer</code> and follow the instructions.
-Initialize the database and leave the installer.
-<strong>Delete the directory <code>data/web/rc/installer</code> after a successful installation!</strong></p>
-<p><strong>Enable change password function in Roundcube</strong></p>
+Initialize the database and leave the installer.</p>
+<p><strong>Delete the directory <code>data/web/rc/installer</code> after a successful installation!</strong></p>
+<h3 id="enable-change-password-function-in-roundcube">Enable change password function in Roundcube<a class="headerlink" href="#enable-change-password-function-in-roundcube" title="Permanent link">&para;</a></h3>
 <p>Open <code>data/web/rc/config.inc.php</code> and enable the password plugin:</p>
 <div class="codehilite"><pre><span></span>...
 $config[&#39;plugins&#39;] = array(
@@ -572,13 +685,13 @@ $config[&#39;password_query&#39;] = &quot;UPDATE mailbox SET password = %P WHERE
 
 
 <h2 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h2>
-<p><strong>Connect to the MySQL database</strong></p>
+<h3 id="connect">Connect<a class="headerlink" href="#connect" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>source mailcow.conf
 docker-compose exec mysql-mailcow mysql -u<span class="cp">${</span><span class="n">DBUSER</span><span class="cp">}</span> -p<span class="cp">${</span><span class="n">DBPASS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">DBNAME</span><span class="cp">}</span>
 </pre></div>
 
 
-<p><strong>Backup the database</strong></p>
+<h3 id="backup_1">Backup<a class="headerlink" href="#backup_1" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>cd /path/to/mailcow-dockerized
 source mailcow.conf
 DATE=$(date +&quot;%Y%m%d_%H%M%S&quot;)
@@ -586,14 +699,14 @@ docker-compose exec mysql-mailcow mysqldump --default-character-set=utf8mb4 -u<s
 </pre></div>
 
 
-<p><strong>Restore the database</strong></p>
+<h3 id="restore_1">Restore<a class="headerlink" href="#restore_1" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>cd /path/to/mailcow-dockerized
 source mailcow.conf
 docker-compose exec mysql-mailcow mysql -u<span class="cp">${</span><span class="n">DBUSER</span><span class="cp">}</span> -p<span class="cp">${</span><span class="n">DBPASS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">DBNAME</span><span class="cp">}</span> <span class="nt">&lt; backup</span><span class="err">_file.sql</span>
 </pre></div>
 
 
-<h2 id="read-logs">Read logs<a class="headerlink" href="#read-logs" title="Permanent link">&para;</a></h2>
+<h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h2>
 <p>You can use <code>docker-compose logs $service-name</code> for all containers.</p>
 <p>Run <code>docker-compose logs</code> for all logs at once.</p>
 <p>Follow the log output by running docker-compose with <code>logs -f</code>.</p>
@@ -612,7 +725,7 @@ docker-compose exec mysql-mailcow mysql -u<span class="cp">${</span><span class=
 <p>Restart the stack, changed containers will be updated:</p>
 <p><code>docker-compose up -d</code></p>
 <h2 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h2>
-<p><strong>Connect to redis key store</strong></p>
+<h3 id="client">Client<a class="headerlink" href="#client" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>docker-compose exec redis-mailcow redis-cli
 </pre></div>
 
@@ -636,13 +749,13 @@ docker-compose exec mysql-mailcow mysql -u<span class="cp">${</span><span class=
 
 <p>2. Open mailcow UI to auto-init the db</p>
 <h2 id="rspamd">Rspamd<a class="headerlink" href="#rspamd" title="Permanent link">&para;</a></h2>
-<p><strong>Learn spam and ham</strong></p>
+<h3 id="learn-spam-and-ham">Learn spam and ham<a class="headerlink" href="#learn-spam-and-ham" title="Permanent link">&para;</a></h3>
 <p>Rspamd learns mail as spam or ham when you move a message in or out of the junk folder to any mailbox besides trash.
 This is archived by using the Dovecot plugin "antispam" and a simple parser script.</p>
 <p>Rspamd also auto-learns mail when a high or low score is detected (see https://rspamd.com/doc/configuration/statistic.html#autolearning)</p>
 <p>The bayes statistics are written to Redis as keys <code>BAYES_HAM</code> and <code>BAYES_SPAM</code>.</p>
 <p>You can also use Rspamd's web ui to learn ham and/or spam.</p>
-<p><strong>CLI tools</strong></p>
+<h3 id="cli-tools">CLI tools<a class="headerlink" href="#cli-tools" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>docker-compose exec rspamd-mailcow rspamc --help
 docker-compose exec rspamd-mailcow rspamadm --help
 </pre></div>
@@ -732,10 +845,10 @@ docker-compose exec rspamd-mailcow rspamadm --help
 <p>Both methods support mulitple YubiKeys.</p>
 <p>As administrator you are able to temporary disable a domain adminsitrators TFA login until they successfully logged in.</p>
 <p>The key used to login will be displayed in green, while other keys remain grey.</p>
-<p><strong>Yubi OTP</strong></p>
+<h3 id="yubi-otp">Yubi OTP<a class="headerlink" href="#yubi-otp" title="Permanent link">&para;</a></h3>
 <p>The Yubi API ID and Key will be checked against the Yubico Cloud API. When setting up TFA you will be asked for your personal API account for this key.
 The API ID, API key and the first 12 characters (your YubiKeys ID in modhex) are stored in the MySQL table as secret.</p>
-<p><strong>U2F</strong></p>
+<h3 id="u2f">U2F<a class="headerlink" href="#u2f" title="Permanent link">&para;</a></h3>
 <p>Only Google Chrome (+derivates) and Opera support U2F authentication to this day natively.
 For Firefox you will need to install the "U2F Support Add-on" as provided on <a href="https://addons.mozilla.org/en-US/firefox/addon/u2f-support-add-on/">mozilla.org</a>.
 U2F works without an internet connection.</p>
