@@ -61,7 +61,8 @@
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
         
-          <a href=".." title="mailcow: dockerized" class="md-icon md-icon--home md-header-nav__button">
+          <a href=".." title="mailcow: dockerized" class="md-logo md-header-nav__button">
+            <img src="../data/web/img/cow_mailcow.svg" width="24" height="24">
           </a>
         
       </div>
@@ -140,7 +141,9 @@
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
     
-      <i class="md-icon md-icon--home md-nav__button"></i>
+      <i class="md-logo md-nav__button">
+        <img src="../data/web/img/cow_mailcow.svg">
+      </i>
     
     mailcow: dockerized
   </label>
@@ -256,7 +259,7 @@
                
               
                 
-                <h1 id="ssl-and-how-to-use-lets-encrypt">SSL (and: How to use Let's Encrypt)</h1>
+                <h1 id="ssl-and-how-to-use-lets-encrypt">SSL (and: How to use Let's Encrypt)<a class="headerlink" href="#ssl-and-how-to-use-lets-encrypt" title="Permanent link">&para;</a></h1>
 <p>mailcow dockerized comes with a snakeoil CA "mailcow" and a server certificate in <code>data/assets/ssl</code>. Please use your own trusted certificates.</p>
 <p>mailcow uses 3 domain names that should be covered by your new certificate:</p>
 <ul>
@@ -267,67 +270,76 @@
 <p><strong>Obtain multi-SAN certificate by Let's Encrypt</strong> </p>
 <p>This is just an example of how to obtain certificates with certbot. There are several methods!</p>
 <p>1. Get the certbot client:</p>
-<pre><code>wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot
-</code></pre>
+<div class="codehilite"><pre><span></span>wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot
+</pre></div>
+
 
 <p>2. Make sure you set <code>HTTP_BIND=0.0.0.0</code> in <code>mailcow.conf</code> or setup a reverse proxy to enable connections to port 80. If you changed HTTP_BIND, then restart Nginx:</p>
-<pre><code>docker-compose restart nginx-mailcow
-</code></pre>
+<div class="codehilite"><pre><span></span>docker-compose restart nginx-mailcow
+</pre></div>
+
 
 <p>3. Request the certificate with the webroot method:</p>
-<pre><code>cd /path/to/git/clone/mailcow-dockerized
+<div class="codehilite"><pre><span></span>cd /path/to/git/clone/mailcow-dockerized
 source mailcow.conf
 certbot certonly \
     --webroot \
-    -w ${PWD}/data/web \
-    -d ${MAILCOW_HOSTNAME} \
+    -w <span class="cp">${</span><span class="n">PWD</span><span class="cp">}</span>/data/web \
+    -d <span class="cp">${</span><span class="n">MAILCOW_HOSTNAME</span><span class="cp">}</span> \
     -d autodiscover.example.org \
     -d autoconfig.example.org \
     --email you@example.org \
     --agree-tos
-</code></pre>
+</pre></div>
+
 
 <p>4. Create hard links to the full path of the new certificates. Assuming you are still in the mailcow root folder:</p>
-<pre><code>mv data/assets/ssl/cert.{pem,pem.backup}
+<div class="codehilite"><pre><span></span>mv data/assets/ssl/cert.{pem,pem.backup}
 mv data/assets/ssl/key.{pem,pem.backup}
-ln $(readlink -f /etc/letsencrypt/live/${MAILCOW_HOSTNAME}/fullchain.pem) data/assets/ssl/cert.pem
-ln $(readlink -f /etc/letsencrypt/live/${MAILCOW_HOSTNAME}/privkey.pem) data/assets/ssl/key.pem
-</code></pre>
+ln $(readlink -f /etc/letsencrypt/live/<span class="cp">${</span><span class="n">MAILCOW_HOSTNAME</span><span class="cp">}</span>/fullchain.pem) data/assets/ssl/cert.pem
+ln $(readlink -f /etc/letsencrypt/live/<span class="cp">${</span><span class="n">MAILCOW_HOSTNAME</span><span class="cp">}</span>/privkey.pem) data/assets/ssl/key.pem
+</pre></div>
+
 
 <p>5. Restart affected containers:</p>
-<pre><code>docker-compose restart postfix-mailcow dovecot-mailcow nginx-mailcow
-</code></pre>
+<div class="codehilite"><pre><span></span>docker-compose restart postfix-mailcow dovecot-mailcow nginx-mailcow
+</pre></div>
+
 
 <p>When renewing certificates, run the last two steps (link + restart) as post-hook in a script.</p>
-<h1 id="rspamd-web-ui">Rspamd Web UI</h1>
+<h1 id="rspamd-web-ui">Rspamd Web UI<a class="headerlink" href="#rspamd-web-ui" title="Permanent link">&para;</a></h1>
 <p>At first you may want to setup Rspamds web interface which provides some useful features and information.</p>
 <p>1. Generate a Rspamd controller password hash:</p>
-<pre><code>docker-compose exec rspamd-mailcow rspamadm pw
-</code></pre>
+<div class="codehilite"><pre><span></span>docker-compose exec rspamd-mailcow rspamadm pw
+</pre></div>
+
 
 <p>2. Replace the default hash in <code>data/conf/rspamd/override.d/worker-controller.inc</code> by your newly generated:</p>
-<pre><code>enable_password = &quot;myhash&quot;;
-</code></pre>
+<div class="codehilite"><pre><span></span>enable_password = &quot;myhash&quot;;
+</pre></div>
+
 
 <p>3. Restart rspamd:</p>
-<pre><code>docker-compose restart rspamd-mailcow
-</code></pre>
+<div class="codehilite"><pre><span></span>docker-compose restart rspamd-mailcow
+</pre></div>
+
 
 <p>Open https://${MAILCOW_HOSTNAME}/rspamd in a browser and login!</p>
-<h1 id="optional-reverse-proxy">Optional: Reverse proxy</h1>
+<h1 id="optional-reverse-proxy">Optional: Reverse proxy<a class="headerlink" href="#optional-reverse-proxy" title="Permanent link">&para;</a></h1>
 <p>You don't need to change the Nginx site that comes with mailcow: dockerized.
 mailcow: dockerized trusts the default gateway IP 172.22.1.1 as proxy. This is very important to control access to Rspamd's web UI.</p>
 <p>1. Make sure you change HTTP_BIND and HTTPS_BIND in <code>mailcow.conf</code> to a local address and set the ports accordingly, for example:</p>
-<pre><code>HTTP_BIND=127.0.0.1
+<div class="codehilite"><pre><span></span>HTTP_BIND=127.0.0.1
 HTTP_PORT=8080
 HTTPS_PORT=127.0.0.1
 HTTPS_PORT=8443
-</code></pre>
+</pre></div>
+
 
 <p>Recreate affected containers by running <code>docker-compose up -d</code>.</p>
 <p>2. Configure your local webserver as reverse proxy:</p>
 <p><strong>Apache 2.4</strong></p>
-<pre><code>&lt;VirtualHost *:443&gt;
+<div class="codehilite"><pre><span></span><span class="nt">&lt;VirtualHost</span> <span class="err">*:443</span><span class="nt">&gt;</span>
     ServerName mail.example.org
     ServerAlias autodiscover.example.org
     ServerAlias autoconfig.example.org
@@ -348,47 +360,55 @@ HTTPS_PORT=8443
     #SSLProxyCheckPeerCN off
     #SSLProxyCheckPeerName off
     #SSLProxyCheckPeerExpire off
-&lt;/VirtualHost&gt;
-</code></pre>
+<span class="nt">&lt;/VirtualHost&gt;</span>
+</pre></div>
+
 
 <p><strong>Nginx</strong></p>
-<pre><code>server {
-    listen 443;
-    server_name mail.example.org autodiscover.example.org autoconfig.example.org;
+<div class="codehilite"><pre><span></span><span class="nt">server</span> <span class="p">{</span>
+    <span class="err">listen</span> <span class="err">443</span><span class="p">;</span>
+    <span class="err">server_name</span> <span class="err">mail.example.org</span> <span class="err">autodiscover.example.org</span> <span class="err">autoconfig.example.org</span><span class="p">;</span>
 
-    [...]
-    your-ssl-configuration-here
-    location / {
-        proxy_pass http://127.0.0.1:8080;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-    [...]
-}
-</code></pre>
+    <span class="cp">[</span><span class="nx">...</span><span class="cp">]</span>
+    <span class="err">your-ssl-configuration-here</span>
+    <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
+        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">X-Real-IP</span> <span class="err">$remote_addr</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+        <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-Proto</span> <span class="err">$scheme</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="cp">[</span><span class="nx">...</span><span class="cp">]</span>
+<span class="err">}</span>
+</pre></div>
 
-<h1 id="sender-and-receiver-model">Sender and receiver model</h1>
+
+<h1 id="sender-and-receiver-model">Sender and receiver model<a class="headerlink" href="#sender-and-receiver-model" title="Permanent link">&para;</a></h1>
 <p>When a mailbox is created, a user is allowed to send mail from and receive mail for his own mailbox address.</p>
-<pre><code>Mailbox me@example.org is created. example.org is a primary domain. 
+<div class="codehilite"><pre><span></span>Mailbox me@example.org is created. example.org is a primary domain. 
 Note: a mailbox cannot be created in an alias domain.
 
 me@example.org is only known as me@example.org.
 me@example.org is allowed to send as me@example.org.
-</code></pre>
+</pre></div>
+
+
 <p>We can add an alias domain for example.org:</p>
-<pre><code>Alias domain alias.com is added and assigned to primary domain example.org.
+<div class="codehilite"><pre><span></span>Alias domain alias.com is added and assigned to primary domain example.org.
 me@example.org is now known as me@example.org and me@alias.com.
 me@example.org is now allowed to send as me@example.org and me@alias.com.
-</code></pre>
+</pre></div>
+
+
 <p>We can add aliases for a mailbox to receive mail for and to send from this new address.</p>
 <p>It is important to know, that you are not able to receive mail for <code>my-alias@my-alias-domain.tld</code>. You would need to create this particular alias.</p>
-<pre><code>me@example.org is assigned the alias alias@example.org
+<div class="codehilite"><pre><span></span>me@example.org is assigned the alias alias@example.org
 me@example.org is now known as alias@example.org, me@alias.com, alias@example.org
 
 me@example.org is NOT known as alias@alias.com.
-</code></pre>
+</pre></div>
+
+
 <p>Administrators and domain administrators can edit mailboxes to allow specific users to send as other mailbox users ("delegate" them).</p>
 <p>You can choose between mailbox users or completely disable the sender check for domains.</p>
 <p><strong>SOGo "mail from" addresses</strong></p>

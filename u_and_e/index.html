@@ -61,7 +61,8 @@
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
         
-          <a href=".." title="mailcow: dockerized" class="md-icon md-icon--home md-header-nav__button">
+          <a href=".." title="mailcow: dockerized" class="md-logo md-header-nav__button">
+            <img src="../data/web/img/cow_mailcow.svg" width="24" height="24">
           </a>
         
       </div>
@@ -140,7 +141,9 @@
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="drawer">
     
-      <i class="md-icon md-icon--home md-nav__button"></i>
+      <i class="md-logo md-nav__button">
+        <img src="../data/web/img/cow_mailcow.svg">
+      </i>
     
     mailcow: dockerized
   </label>
@@ -256,199 +259,221 @@
                
               
                 
-                <h1 id="anonymize-headers">Anonymize headers</h1>
+                <h1 id="anonymize-headers">Anonymize headers<a class="headerlink" href="#anonymize-headers" title="Permanent link">&para;</a></h1>
 <p>Save as <code>data/conf/postfix/mailcow_anonymize_headers.pcre</code>:</p>
-<pre><code>/^\s*Received:[^\)]+\)\s+\(Authenticated sender:(.+)/
+<div class="codehilite"><pre><span></span>/^\s*Received:[^\)]+\)\s+\(Authenticated sender:(.+)/
     REPLACE Received: from localhost (localhost [127.0.0.1]) (Authenticated sender:$1
 /^\s*User-Agent/        IGNORE
 /^\s*X-Enigmail/        IGNORE
 /^\s*X-Mailer/          IGNORE
 /^\s*X-Originating-IP/  IGNORE
 /^\s*X-Forward/         IGNORE
-</code></pre>
+</pre></div>
+
 
 <p>Add this to <code>data/conf/postfix/main.cf</code>:</p>
-<pre><code>smtp_header_checks = pcre:/opt/postfix/conf/mailcow_anonymize_headers.pcre
-</code></pre>
+<div class="codehilite"><pre><span></span>smtp_header_checks = pcre:/opt/postfix/conf/mailcow_anonymize_headers.pcre
+</pre></div>
 
-<h1 id="backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)</h1>
+
+<h1 id="backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)<a class="headerlink" href="#backup-and-restore-maildir-simple-tar-file" title="Permanent link">&para;</a></h1>
 <p><strong>Backup</strong></p>
 <p>This line backups the vmail directory to a file backup_vmail.tar.gz in the mailcow root directory:</p>
-<pre><code>cd /path/to/mailcow-dockerized
+<div class="codehilite"><pre><span></span>cd /path/to/mailcow-dockerized
 source mailcow.conf
 DATE=$(date +&quot;%Y%m%d_%H%M%S&quot;)
-docker run --rm -it -v $(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination &quot;/var/vmail&quot; }}{{ .Name }}{{ end }}{{ end }}' $(docker-compose ps -q dovecot-mailcow)):/vmail -v ${PWD}:/backup debian:jessie tar cvfz /backup/backup_vmail.tar.gz /vmail
-</code></pre>
+docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if eq .Destination &quot;/var/vmail&quot; }}{{ .Name }}{{ end }}{{ end }}&#39; $(docker-compose ps -q dovecot-mailcow)):/vmail -v <span class="cp">${</span><span class="n">PWD</span><span class="cp">}</span>:/backup debian:jessie tar cvfz /backup/backup_vmail.tar.gz /vmail
+</pre></div>
+
 
 <p>You can change the path by adjusting ${PWD} (which equals to the current directory) to any path you have write-access to.
 Set the filename <code>backup_vmail.tar.gz</code> to any custom name, but leave the path as it is. Example: <code>[...] tar cvfz /backup/my_own_filename_.tar.gz</code></p>
 <p><strong>Restore</strong></p>
-<pre><code>cd /path/to/mailcow-dockerized
+<div class="codehilite"><pre><span></span>cd /path/to/mailcow-dockerized
 source mailcow.conf
 DATE=$(date +&quot;%Y%m%d_%H%M%S&quot;)
-docker run --rm -it -v $(docker inspect --format '{{ range .Mounts }}{{ if eq .Destination &quot;/var/vmail&quot; }}{{ .Name }}{{ end }}{{ end }}' $(docker-compose ps -q dovecot-mailcow)):/vmail -v ${PWD}:/backup debian:jessie tar xvfz /backup/backup_vmail.tar.gz
-</code></pre>
+docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if eq .Destination &quot;/var/vmail&quot; }}{{ .Name }}{{ end }}{{ end }}&#39; $(docker-compose ps -q dovecot-mailcow)):/vmail -v <span class="cp">${</span><span class="n">PWD</span><span class="cp">}</span>:/backup debian:jessie tar xvfz /backup/backup_vmail.tar.gz
+</pre></div>
 
-<h1 id="docker-compose-bash-completion">Docker Compose Bash completion</h1>
+
+<h1 id="docker-compose-bash-completion">Docker Compose Bash completion<a class="headerlink" href="#docker-compose-bash-completion" title="Permanent link">&para;</a></h1>
 <p>For the tab-tab... :-)</p>
-<pre><code>curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
-</code></pre>
+<div class="codehilite"><pre><span></span>curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+</pre></div>
 
-<h1 id="black-and-whitelist">Black and Whitelist</h1>
+
+<h1 id="black-and-whitelist">Black and Whitelist<a class="headerlink" href="#black-and-whitelist" title="Permanent link">&para;</a></h1>
 <p>Edit a domain as (domain) administrator to add an item to the filter table.</p>
 <p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. </p>
-<h1 id="change-default-language">Change default language</h1>
+<h1 id="change-default-language">Change default language<a class="headerlink" href="#change-default-language" title="Permanent link">&para;</a></h1>
 <p>Change <code>data/conf/sogo/sogo.conf</code> and replace "English" by your prefered language.</p>
 <p>Create a file <code>data/web/inc/vars.local.inc.php</code> and add "DEFAULT_LANG" with either "en", "pt", "de" or "nl":</p>
-<pre><code>&lt;?php
-$DEFAULT_LANG = &quot;de&quot;;
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$DEFAULT_LANG</span> <span class="o">=</span> <span class="s2">&quot;de&quot;</span><span class="p">;</span>
+</pre></div>
 
-<h1 id="change-ui-theme">Change UI theme</h1>
+
+<h1 id="change-ui-theme">Change UI theme<a class="headerlink" href="#change-ui-theme" title="Permanent link">&para;</a></h1>
 <p>mailcow uses <a href="http://getbootstrap.com/">Bootstrap</a>, a HTML, CSS, and JS framework.</p>
 <p>Open or create the file <code>data/web/inc/vars.local.inc.php</code> and change <code>DEFAULT_THEME</code> to either cerulean, cosmo, custom, cyborg, darkly, flatly, journal, paper, readable, sandstone, simplex, slate, spacelab, superhero, united or yeti (see https://bootswatch.com/):</p>
-<pre><code>&lt;?php
-$DEFAULT_THEME = &quot;paper&quot;;
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nv">$DEFAULT_THEME</span> <span class="o">=</span> <span class="s2">&quot;paper&quot;</span><span class="p">;</span>
+</pre></div>
 
-<h1 id="customize-dockerfiles">Customize Dockerfiles</h1>
+
+<h1 id="customize-dockerfiles">Customize Dockerfiles<a class="headerlink" href="#customize-dockerfiles" title="Permanent link">&para;</a></h1>
 <p>Make your changes in <code>data/Dockerfiles/$service</code> and build the image locally:</p>
-<pre><code>docker build data/Dockerfiles/service -t andryyy/mailcow-dockerized:$service
-</code></pre>
+<div class="codehilite"><pre><span></span>docker build data/Dockerfiles/service -t andryyy/mailcow-dockerized:$service
+</pre></div>
+
 
 <p>Now auto-recreate modified containers:</p>
-<pre><code>docker-compose up -d
-</code></pre>
+<div class="codehilite"><pre><span></span>docker-compose up -d
+</pre></div>
 
-<h1 id="disable-sender-addresses-verification">Disable sender addresses verification</h1>
+
+<h1 id="disable-sender-addresses-verification">Disable sender addresses verification<a class="headerlink" href="#disable-sender-addresses-verification" title="Permanent link">&para;</a></h1>
 <p>This option is not best-practice and should only be implemented when there is no other option available to archive whatever you are trying to do.</p>
 <p>Simply create a file <code>data/conf/postfix/check_sender_access</code> and enter the following content:</p>
-<pre><code>user-to-allow-everything@example.com OK
-</code></pre>
+<div class="codehilite"><pre><span></span>user-to-allow-everything@example.com OK
+</pre></div>
+
 
 <p>Open <code>data/conf/postfix/main.cf</code> and find <code>smtpd_sender_restrictions</code>. Prepend <code>check_sasl_access hash:/opt/postfix/conf/check_sender_access</code> like this:</p>
-<pre><code>smtpd_sender_restrictions = check_sasl_access hash:/opt/postfix/conf/check_sender_access reject_authenticated_sender [...]
-</code></pre>
+<div class="codehilite"><pre><span></span>smtpd_sender_restrictions = check_sasl_access hash:/opt/postfix/conf/check_sender_access reject_authenticated_sender [...]
+</pre></div>
+
 
 <p>Run postmap on check_sasl_access:</p>
-<pre><code>docker-compose exec postfix-mailcow postmap /opt/postfix/conf/check_sasl_access
-</code></pre>
+<div class="codehilite"><pre><span></span>docker-compose exec postfix-mailcow postmap /opt/postfix/conf/check_sasl_access
+</pre></div>
+
 
 <p>Restart the Postfix container.</p>
-<h1 id="install-roundcube">Install Roundcube</h1>
+<h1 id="install-roundcube">Install Roundcube<a class="headerlink" href="#install-roundcube" title="Permanent link">&para;</a></h1>
 <p>Download Roundcube 1.3.x (beta at the time of Feb 2017) to the web htdocs directory and extract it (here <code>rc/</code>):</p>
-<pre><code>cd data/web/rc
+<div class="codehilite"><pre><span></span>cd data/web/rc
 wget -O - https://github.com/roundcube/roundcubemail/releases/download/1.3-beta/roundcubemail-1.3-beta-complete.tar.gz | tar xfvz -
 # Change folder name
 mv roundcubemail-1.3* rc
 # Change permissions
 chown -R root: rc/
-</code></pre>
+</pre></div>
+
 
 <p>Create a file <code>data/web/rc/config/config.inc.php</code> with the following content.</p>
 <p><strong>Change the <code>des_key</code> parameter to a random value.</strong> It is used to temporarily store your IMAP password.</p>
-<pre><code>&lt;?php
-error_reporting(0);
-if (!file_exists('/tmp/mime.types')) {
-file_put_contents(&quot;/tmp/mime.types&quot;, fopen(&quot;http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types&quot;, 'r'));
-}
-$config = array();
-$config['db_dsnw'] = 'mysql://' . getenv('DBUSER') . ':' . getenv('DBPASS') . '@mysql/' . getenv('DBNAME');
-$config['default_host'] = 'tls://dovecot';
-$config['default_port'] = '143';
-$config['smtp_server'] = 'tls://postfix';
-$config['smtp_port'] = 587;
-$config['smtp_user'] = '%u';
-$config['smtp_pass'] = '%p';
-$config['support_url'] = '';
-$config['product_name'] = 'Roundcube Webmail';
-$config['des_key'] = 'rcmail-!24ByteDESkey*Str';
-$config['log_dir'] = '/dev/null';
-$config['temp_dir'] = '/tmp';
-$config['plugins'] = array(
-    'archive',
-);
-$config['skin'] = 'larry';
-$config['mime_types'] = '/tmp/mime.types';
-$config['imap_conn_options'] = array(
-'ssl' =&gt; array('verify_peer' =&gt; false, 'verify_peer_name' =&gt; false, 'allow_self_signed' =&gt; true)
-);
-$config['enable_installer'] = false;
-$config['smtp_conn_options'] = array(
-'ssl' =&gt; array('verify_peer' =&gt; false, 'verify_peer_name' =&gt; false, 'allow_self_signed' =&gt; true)
-);
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nb">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">file_exists</span><span class="p">(</span><span class="s1">&#39;/tmp/mime.types&#39;</span><span class="p">))</span> <span class="p">{</span>
+<span class="nb">file_put_contents</span><span class="p">(</span><span class="s2">&quot;/tmp/mime.types&quot;</span><span class="p">,</span> <span class="nb">fopen</span><span class="p">(</span><span class="s2">&quot;http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types&quot;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">));</span>
+<span class="p">}</span>
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;db_dsnw&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;mysql://&#39;</span> <span class="o">.</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;DBUSER&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;:&#39;</span> <span class="o">.</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;DBPASS&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;@mysql/&#39;</span> <span class="o">.</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;DBNAME&#39;</span><span class="p">);</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;default_host&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;tls://dovecot&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;default_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;143&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;smtp_server&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;tls://postfix&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;smtp_port&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">587</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;smtp_user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;%u&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;smtp_pass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;%p&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;support_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;product_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Roundcube Webmail&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;des_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;rcmail-!24ByteDESkey*Str&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;log_dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/dev/null&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;temp_dir&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/tmp&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;plugins&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;archive&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;skin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;larry&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;mime_types&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/tmp/mime.types&#39;</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;imap_conn_options&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<span class="s1">&#39;ssl&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;verify_peer&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span> <span class="s1">&#39;verify_peer_name&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span> <span class="s1">&#39;allow_self_signed&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;enable_installer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+<span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;smtp_conn_options&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+<span class="s1">&#39;ssl&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;verify_peer&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span> <span class="s1">&#39;verify_peer_name&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span> <span class="s1">&#39;allow_self_signed&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+
 
 <p>Point your browser to <code>https://myserver/rc/installer</code> and follow the instructions.
 Initialize the database and leave the installer.
 <strong>Delete the directory <code>data/web/rc/installer</code> after a successful installation!</strong></p>
 <p><strong>Enable change password function in Roundcube</strong></p>
 <p>Open <code>data/web/rc/config.inc.php</code> and enable the password plugin:</p>
-<pre><code>...
-$config['plugins'] = array(
-    'archive',
-    'password',
+<div class="codehilite"><pre><span></span>...
+$config[&#39;plugins&#39;] = array(
+    &#39;archive&#39;,
+    &#39;password&#39;,
 );
 ...
-</code></pre>
+</pre></div>
+
 
 <p>Open <code>data/web/rc/plugins/password/password.php</code>, search for <code>case 'ssha':</code> and add above:</p>
-<pre><code>        case 'ssha256':
-            $salt = rcube_utils::random_bytes(8);
-            $crypted = base64_encode( hash('sha256', $password . $salt, TRUE ) . $salt );
-            $prefix  = '{SSHA256}';
-            break;
-</code></pre>
+<div class="codehilite"><pre><span></span>        <span class="nt">case</span> <span class="s1">&#39;ssha256&#39;</span><span class="o">:</span>
+            <span class="o">$</span><span class="nt">salt</span> <span class="o">=</span> <span class="nt">rcube_utils</span><span class="p">::</span><span class="nd">random_bytes</span><span class="o">(</span><span class="nt">8</span><span class="o">);</span>
+            <span class="o">$</span><span class="nt">crypted</span> <span class="o">=</span> <span class="nt">base64_encode</span><span class="o">(</span> <span class="nt">hash</span><span class="o">(</span><span class="s1">&#39;sha256&#39;</span><span class="o">,</span> <span class="o">$</span><span class="nt">password</span> <span class="o">.</span> <span class="o">$</span><span class="nt">salt</span><span class="o">,</span> <span class="nt">TRUE</span> <span class="o">)</span> <span class="o">.</span> <span class="o">$</span><span class="nt">salt</span> <span class="o">);</span>
+            <span class="o">$</span><span class="nt">prefix</span>  <span class="o">=</span> <span class="s1">&#39;{SSHA256}&#39;</span><span class="o">;</span>
+            <span class="nt">break</span><span class="o">;</span>
+</pre></div>
+
 
 <p>Open <code>data/web/rc/plugins/password/config.inc.php</code> and change the following parameters (or add them at the bottom of that file):</p>
-<pre><code>$config['password_driver'] = 'sql';
-$config['password_algorithm'] = 'ssha256';
-$config['password_algorithm_prefix'] = '{SSHA256}';
-$config['password_query'] = &quot;UPDATE mailbox SET password = %P WHERE username = %u&quot;;
-</code></pre>
+<div class="codehilite"><pre><span></span>$config[&#39;password_driver&#39;] = &#39;sql&#39;;
+$config[&#39;password_algorithm&#39;] = &#39;ssha256&#39;;
+$config[&#39;password_algorithm_prefix&#39;] = &#39;{SSHA256}&#39;;
+$config[&#39;password_query&#39;] = &quot;UPDATE mailbox SET password = %P WHERE username = %u&quot;;
+</pre></div>
 
-<h1 id="mysql">MySQL</h1>
+
+<h1 id="mysql">MySQL<a class="headerlink" href="#mysql" title="Permanent link">&para;</a></h1>
 <p><strong>Connect to the MySQL database</strong></p>
-<pre><code>source mailcow.conf
-docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME}
-</code></pre>
+<div class="codehilite"><pre><span></span>source mailcow.conf
+docker-compose exec mysql-mailcow mysql -u<span class="cp">${</span><span class="n">DBUSER</span><span class="cp">}</span> -p<span class="cp">${</span><span class="n">DBPASS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">DBNAME</span><span class="cp">}</span>
+</pre></div>
+
 
 <p><strong>Backup the database</strong></p>
-<pre><code>cd /path/to/mailcow-dockerized
+<div class="codehilite"><pre><span></span>cd /path/to/mailcow-dockerized
 source mailcow.conf
 DATE=$(date +&quot;%Y%m%d_%H%M%S&quot;)
-docker-compose exec mysql-mailcow mysqldump --default-character-set=utf8mb4 -u${DBUSER} -p${DBPASS} ${DBNAME} &gt; backup_${DBNAME}_${DATE}.sql
-</code></pre>
+docker-compose exec mysql-mailcow mysqldump --default-character-set=utf8mb4 -u<span class="cp">${</span><span class="n">DBUSER</span><span class="cp">}</span> -p<span class="cp">${</span><span class="n">DBPASS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">DBNAME</span><span class="cp">}</span> &gt; backup_<span class="cp">${</span><span class="n">DBNAME</span><span class="cp">}</span>_<span class="cp">${</span><span class="n">DATE</span><span class="cp">}</span>.sql
+</pre></div>
+
 
 <p><strong>Restore the database</strong></p>
-<pre><code>cd /path/to/mailcow-dockerized
+<div class="codehilite"><pre><span></span>cd /path/to/mailcow-dockerized
 source mailcow.conf
-docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} &lt; backup_file.sql
-</code></pre>
+docker-compose exec mysql-mailcow mysql -u<span class="cp">${</span><span class="n">DBUSER</span><span class="cp">}</span> -p<span class="cp">${</span><span class="n">DBPASS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">DBNAME</span><span class="cp">}</span> <span class="nt">&lt; backup</span><span class="err">_file.sql</span>
+</pre></div>
 
-<h1 id="read-logs">Read logs</h1>
+
+<h1 id="read-logs">Read logs<a class="headerlink" href="#read-logs" title="Permanent link">&para;</a></h1>
 <p>You can use <code>docker-compose logs $service-name</code> for all containers.</p>
 <p>Run <code>docker-compose logs</code> for all logs at once.</p>
 <p>Follow the log output by running docker-compose with <code>logs -f</code>.</p>
-<h1 id="redirect-port-80-to-443">Redirect port 80 to 443</h1>
+<h1 id="redirect-port-80-to-443">Redirect port 80 to 443<a class="headerlink" href="#redirect-port-80-to-443" title="Permanent link">&para;</a></h1>
 <p>Since February the 28th 2017 mailcow does come with port 80 and 443 enabled.</p>
 <p>Open <code>mailcow.conf</code> and set <code>HTTP_BIND=0.0.0.0</code>.</p>
 <p>Open <code>data/conf/nginx/site.conf</code> and add a new "catch-all" site at the top of that file:</p>
-<pre><code>server {
-    listen 80 default_server;
-    server_name _;
-    return 301 https://$host$request_uri;
-}
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="nt">server</span> <span class="p">{</span>
+    <span class="err">listen</span> <span class="err">80</span> <span class="err">default_server</span><span class="p">;</span>
+    <span class="err">server_name</span> <span class="err">_</span><span class="p">;</span>
+    <span class="err">return</span> <span class="err">301</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
 
 <p>Restart the stack, changed containers will be updated:</p>
 <p><code>docker-compose up -d</code></p>
-<h1 id="redis">Redis</h1>
+<h1 id="redis">Redis<a class="headerlink" href="#redis" title="Permanent link">&para;</a></h1>
 <p><strong>Connect to redis key store</strong></p>
-<pre><code>docker-compose exec redis-mailcow redis-cli
-</code></pre>
+<div class="codehilite"><pre><span></span>docker-compose exec redis-mailcow redis-cli
+</pre></div>
 
-<h1 id="remove-persistent-data">Remove persistent data</h1>
+
+<h1 id="remove-persistent-data">Remove persistent data<a class="headerlink" href="#remove-persistent-data" title="Permanent link">&para;</a></h1>
 <ul>
 <li>Remove volume <code>mysql-vol-1</code> to remove all MySQL data.</li>
 <li>Remove volume <code>redis-vol-1</code> to remove all Redis data.</li>
@@ -457,15 +482,16 @@ docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} &lt; b
 <li>Remove volume <code>rspamd-vol-1</code> to remove all Rspamd data.</li>
 </ul>
 <p>Running <code>docker-compose down -v</code> will <strong>destroy all mailcow: dockerized volumes</strong> and delete any related containers.</p>
-<h1 id="reset-admin-password">Reset admin password</h1>
+<h1 id="reset-admin-password">Reset admin password<a class="headerlink" href="#reset-admin-password" title="Permanent link">&para;</a></h1>
 <p>Reset mailcow admin to <code>admin:moohoo</code>:</p>
 <p>1. Drop admin table</p>
-<pre><code>source mailcow.conf
-docker-compose exec mysql-mailcow mysql -u${DBUSER} -p${DBPASS} ${DBNAME} -e &quot;DROP TABLE admin;&quot;
-</code></pre>
+<div class="codehilite"><pre><span></span>source mailcow.conf
+docker-compose exec mysql-mailcow mysql -u<span class="cp">${</span><span class="n">DBUSER</span><span class="cp">}</span> -p<span class="cp">${</span><span class="n">DBPASS</span><span class="cp">}</span> <span class="cp">${</span><span class="n">DBNAME</span><span class="cp">}</span> -e &quot;DROP TABLE admin;&quot;
+</pre></div>
+
 
 <p>2. Open mailcow UI to auto-init the db</p>
-<h1 id="rspamd">Rspamd</h1>
+<h1 id="rspamd">Rspamd<a class="headerlink" href="#rspamd" title="Permanent link">&para;</a></h1>
 <p><strong>Learn spam and ham</strong></p>
 <p>Rspamd learns mail as spam or ham when you move a message in or out of the junk folder to any mailbox besides trash.
 This is archived by using the Dovecot plugin "antispam" and a simple parser script.</p>
@@ -473,14 +499,15 @@ This is archived by using the Dovecot plugin "antispam" and a simple parser scri
 <p>The bayes statistics are written to Redis as keys <code>BAYES_HAM</code> and <code>BAYES_SPAM</code>.</p>
 <p>You can also use Rspamd's web ui to learn ham and/or spam.</p>
 <p><strong>CLI tools</strong></p>
-<pre><code>docker-compose exec rspamd-mailcow rspamc --help
+<div class="codehilite"><pre><span></span>docker-compose exec rspamd-mailcow rspamc --help
 docker-compose exec rspamd-mailcow rspamadm --help
-</code></pre>
+</pre></div>
+
 
 <p>See <a href="https://rspamd.com/doc/index.html">Rspamd documentation</a></p>
-<h1 id="adjust-service-configurations">Adjust service configurations</h1>
+<h1 id="adjust-service-configurations">Adjust service configurations<a class="headerlink" href="#adjust-service-configurations" title="Permanent link">&para;</a></h1>
 <p>The most important configuration files are mounted from the host into the related containers:</p>
-<pre><code>data/conf
+<div class="codehilite"><pre><span></span>data/conf
 ├── bind9
 │   └── named.conf
 ├── dovecot
@@ -543,18 +570,19 @@ docker-compose exec rspamd-mailcow rspamadm --help
 └── sogo
     ├── sieve.creds
     └── sogo.conf
+</pre></div>
 
-</code></pre>
 
 <p>Just change the according configuration file on the host and restart the related service:</p>
-<pre><code>docker-compose restart service-mailcow
-</code></pre>
+<div class="codehilite"><pre><span></span>docker-compose restart service-mailcow
+</pre></div>
 
-<h1 id="tagging">Tagging</h1>
+
+<h1 id="tagging">Tagging<a class="headerlink" href="#tagging" title="Permanent link">&para;</a></h1>
 <p>Mailbox users can tag their mail address like in <code>me+facebook@example.org</code> and choose between to setups to handle this tag:</p>
 <p>1. Move this message to a subfolder "facebook" (will be created lower case if not existing)</p>
 <p>2. Prepend the tag to the subject: "[facebook] Subject"</p>
-<h1 id="two-factor-authentication">Two-factor authentication</h1>
+<h1 id="two-factor-authentication">Two-factor authentication<a class="headerlink" href="#two-factor-authentication" title="Permanent link">&para;</a></h1>
 <p>So far two methods for TFA are impelemented. Both work with the fantastic <a href="https://www.yubico.com">Yubikey</a>. </p>
 <p>While Yubi OTP needs an active internet connection and an API ID and key, U2F will work with any FIDO U2F USB key out of the box, but can only be used when mailcow is accessed over HTTPS.</p>
 <p>Both methods support mulitple YubiKeys.</p>
@@ -567,7 +595,7 @@ The API ID, API key and the first 12 characters (your YubiKeys ID in modhex) are
 <p>Only Google Chrome (+derivates) and Opera support U2F authentication to this day natively.
 For Firefox you will need to install the "U2F Support Add-on" as provided on <a href="https://addons.mozilla.org/en-US/firefox/addon/u2f-support-add-on/">mozilla.org</a>.
 U2F works without an internet connection.</p>
-<h1 id="why-bind">Why Bind?</h1>
+<h1 id="why-bind">Why Bind?<a class="headerlink" href="#why-bind" title="Permanent link">&para;</a></h1>
 <p>For DNS blacklist lookups and DNSSEC.</p>
 <p>Most systems use either a public or a local caching DNS resolver.
 That's a very bad idea when it comes to filter spam using DNS-based blackhole lists (DNSBL) or similar technics.
