@@ -337,7 +337,7 @@ HTTPS_PORT=8443
 
 <p>Recreate affected containers by running <code>docker-compose up -d</code>.</p>
 <p>2. Configure your local webserver as reverse proxy:</p>
-<p><strong>Apache 2.4</strong></p>
+<h3 id="apache-24">Apache 2.4<a class="headerlink" href="#apache-24" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nt">&lt;VirtualHost</span> <span class="err">*:443</span><span class="nt">&gt;</span>
     ServerName mail.example.org
     ServerAlias autodiscover.example.org
@@ -363,7 +363,7 @@ HTTPS_PORT=8443
 </pre></div>
 
 
-<p><strong>Nginx</strong></p>
+<h3 id="nginx">Nginx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nt">server</span> <span class="p">{</span>
     <span class="err">listen</span> <span class="err">443</span><span class="p">;</span>
     <span class="err">server_name</span> <span class="err">mail.example.org</span> <span class="err">autodiscover.example.org</span> <span class="err">autoconfig.example.org</span><span class="p">;</span>
