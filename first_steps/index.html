@@ -212,9 +212,99 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        First Steps
+      </label>
+    
     <a href="./" title="First Steps" class="md-nav__link md-nav__link--active">
       First Steps
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ssl-and-how-to-use-lets-encrypt" title="SSL (and: How to use Let's Encrypt)" class="md-nav__link">
+    SSL (and: How to use Let's Encrypt)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-multi-san-certificate-by-lets-encrypt" title="Obtain multi-SAN certificate by Let's Encrypt" class="md-nav__link">
+    Obtain multi-SAN certificate by Let's Encrypt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rspamd-web-ui" title="Rspamd Web UI" class="md-nav__link">
+    Rspamd Web UI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-reverse-proxy" title="Optional: Reverse proxy" class="md-nav__link">
+    Optional: Reverse proxy
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-24" title="Apache 2.4" class="md-nav__link">
+    Apache 2.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx" title="Nginx" class="md-nav__link">
+    Nginx
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sender-and-receiver-model" title="Sender and receiver model" class="md-nav__link">
+    Sender and receiver model
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sogo-mail-from-addresses" title="SOGo "mail from" addresses" class="md-nav__link">
+    SOGo "mail from" addresses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -245,8 +335,85 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
   
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ssl-and-how-to-use-lets-encrypt" title="SSL (and: How to use Let's Encrypt)" class="md-nav__link">
+    SSL (and: How to use Let's Encrypt)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtain-multi-san-certificate-by-lets-encrypt" title="Obtain multi-SAN certificate by Let's Encrypt" class="md-nav__link">
+    Obtain multi-SAN certificate by Let's Encrypt
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rspamd-web-ui" title="Rspamd Web UI" class="md-nav__link">
+    Rspamd Web UI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-reverse-proxy" title="Optional: Reverse proxy" class="md-nav__link">
+    Optional: Reverse proxy
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-24" title="Apache 2.4" class="md-nav__link">
+    Apache 2.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx" title="Nginx" class="md-nav__link">
+    Nginx
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sender-and-receiver-model" title="Sender and receiver model" class="md-nav__link">
+    Sender and receiver model
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sogo-mail-from-addresses" title="SOGo "mail from" addresses" class="md-nav__link">
+    SOGo "mail from" addresses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -261,7 +428,9 @@
                
               
                 
-                <h1 id="ssl-and-how-to-use-lets-encrypt">SSL (and: How to use Let's Encrypt)<a class="headerlink" href="#ssl-and-how-to-use-lets-encrypt" title="Permanent link">&para;</a></h1>
+                  <h1>First Steps</h1>
+                
+                <h2 id="ssl-and-how-to-use-lets-encrypt">SSL (and: How to use Let's Encrypt)<a class="headerlink" href="#ssl-and-how-to-use-lets-encrypt" title="Permanent link">&para;</a></h2>
 <p>mailcow dockerized comes with a snakeoil CA "mailcow" and a server certificate in <code>data/assets/ssl</code>. Please use your own trusted certificates.</p>
 <p>mailcow uses 3 domain names that should be covered by your new certificate:</p>
 <ul>
@@ -269,7 +438,7 @@
 <li>autodiscover.<strong>example.org</strong></li>
 <li>autoconfig.<strong>example.org</strong></li>
 </ul>
-<p><strong>Obtain multi-SAN certificate by Let's Encrypt</strong> </p>
+<h3 id="obtain-multi-san-certificate-by-lets-encrypt">Obtain multi-SAN certificate by Let's Encrypt<a class="headerlink" href="#obtain-multi-san-certificate-by-lets-encrypt" title="Permanent link">&para;</a></h3>
 <p>This is just an example of how to obtain certificates with certbot. There are several methods!</p>
 <p>1. Get the certbot client:</p>
 <div class="codehilite"><pre><span></span>wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot
@@ -309,7 +478,7 @@ ln $(readlink -f /etc/letsencrypt/live/<span class="cp">${</span><span class="n"
 
 
 <p>When renewing certificates, run the last two steps (link + restart) as post-hook in a script.</p>
-<h1 id="rspamd-web-ui">Rspamd Web UI<a class="headerlink" href="#rspamd-web-ui" title="Permanent link">&para;</a></h1>
+<h2 id="rspamd-web-ui">Rspamd Web UI<a class="headerlink" href="#rspamd-web-ui" title="Permanent link">&para;</a></h2>
 <p>At first you may want to setup Rspamds web interface which provides some useful features and information.</p>
 <p>1. Generate a Rspamd controller password hash:</p>
 <div class="codehilite"><pre><span></span>docker-compose exec rspamd-mailcow rspamadm pw
@@ -327,7 +496,7 @@ ln $(readlink -f /etc/letsencrypt/live/<span class="cp">${</span><span class="n"
 
 
 <p>Open https://${MAILCOW_HOSTNAME}/rspamd in a browser and login!</p>
-<h1 id="optional-reverse-proxy">Optional: Reverse proxy<a class="headerlink" href="#optional-reverse-proxy" title="Permanent link">&para;</a></h1>
+<h2 id="optional-reverse-proxy">Optional: Reverse proxy<a class="headerlink" href="#optional-reverse-proxy" title="Permanent link">&para;</a></h2>
 <p>You don't need to change the Nginx site that comes with mailcow: dockerized.
 mailcow: dockerized trusts the default gateway IP 172.22.1.1 as proxy. This is very important to control access to Rspamd's web UI.</p>
 <p>1. Make sure you change HTTP_BIND and HTTPS_BIND in <code>mailcow.conf</code> to a local address and set the ports accordingly, for example:</p>
@@ -385,7 +554,7 @@ HTTPS_PORT=8443
 </pre></div>
 
 
-<h1 id="sender-and-receiver-model">Sender and receiver model<a class="headerlink" href="#sender-and-receiver-model" title="Permanent link">&para;</a></h1>
+<h2 id="sender-and-receiver-model">Sender and receiver model<a class="headerlink" href="#sender-and-receiver-model" title="Permanent link">&para;</a></h2>
 <p>When a mailbox is created, a user is allowed to send mail from and receive mail for his own mailbox address.</p>
 <div class="codehilite"><pre><span></span>Mailbox me@example.org is created. example.org is a primary domain. 
 Note: a mailbox cannot be created in an alias domain.
@@ -413,7 +582,7 @@ me@example.org is NOT known as alias@alias.com.
 
 <p>Administrators and domain administrators can edit mailboxes to allow specific users to send as other mailbox users ("delegate" them).</p>
 <p>You can choose between mailbox users or completely disable the sender check for domains.</p>
-<p><strong>SOGo "mail from" addresses</strong></p>
+<h3 id="sogo-mail-from-addresses">SOGo "mail from" addresses<a class="headerlink" href="#sogo-mail-from-addresses" title="Permanent link">&para;</a></h3>
 <p>Mailbox users can, obviously, select their own mailbox address, as well as all alias addresses and aliases that exist through alias domains.</p>
 <p>If you want to select another <em>existing</em> mailbox user as your "mail from" address, this user has to delegate you access through SOGo (see SOGo documentation). Moreover a mailcow (domain) administrator
 needs to grant you access as described above.</p>
