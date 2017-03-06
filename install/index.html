@@ -146,15 +146,23 @@
 <p>The database will be initialized right after a connection to MySQL can be established.</p>
 <h1 id="update-mailcow">Update mailcow</h1>
 <p>There is no update routine. You need to refresh your pulled repository clone and apply your local changes (if any). Actually there are many ways to merge local changes. Here is one to
-stash all local changes, pull changes from the remote master branch and apply your stash on top of it:</p>
-<pre><code>git stash
+stash all local changes, pull changes from the remote master branch and apply your stash on top of it. You will most likely see warnings about non-commited changes; you can ignore them:</p>
+<pre><code># Stash local changes
+git stash
+# Re-pull master
 git pull
+# Apply stash and remove it
 git stash pop
 </code></pre>
 
 <p>Pull new images (if any) and recreate changed containers:</p>
 <pre><code>docker-compose pull
 docker-compose up -d --remove-orphans
+</code></pre>
+
+<p>Clean-up dangling (unused) images and volumes:</p>
+<pre><code>docker rmi -f $(docker images -f &quot;dangling=true&quot; -q)
+docker volume rm $(docker volume ls -qf dangling=true)
 </code></pre>
               
             </div>
