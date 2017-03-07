@@ -564,7 +564,8 @@ docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if e
 
 <h2 id="black-and-whitelist">Black and Whitelist<a class="headerlink" href="#black-and-whitelist" title="Permanent link">&para;</a></h2>
 <p>Edit a domain as (domain) administrator to add an item to the filter table.</p>
-<p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. </p>
+<p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. 
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
 <h2 id="change-default-language">Change default language<a class="headerlink" href="#change-default-language" title="Permanent link">&para;</a></h2>
 <p>Change <code>data/conf/sogo/sogo.conf</code> and replace "English" by your prefered language.</p>
 <p>Create a file <code>data/web/inc/vars.local.inc.php</code> and add "DEFAULT_LANG" with either "en", "pt", "de" or "nl":</p>
@@ -660,7 +661,7 @@ chown -R root: rc/
 Initialize the database and leave the installer.</p>
 <p><strong>Delete the directory <code>data/web/rc/installer</code> after a successful installation!</strong></p>
 <h3 id="enable-change-password-function-in-roundcube">Enable change password function in Roundcube<a class="headerlink" href="#enable-change-password-function-in-roundcube" title="Permanent link">&para;</a></h3>
-<p>Open <code>data/web/rc/config.inc.php</code> and enable the password plugin:</p>
+<p>Open <code>data/web/rc/config/config.inc.php</code> and enable the password plugin:</p>
 <div class="codehilite"><pre><span></span>...
 $config[&#39;plugins&#39;] = array(
     &#39;archive&#39;,
@@ -853,8 +854,8 @@ docker-compose exec rspamd-mailcow rspamadm --help
 The API ID, API key and the first 12 characters (your YubiKeys ID in modhex) are stored in the MySQL table as secret.</p>
 <h3 id="u2f">U2F<a class="headerlink" href="#u2f" title="Permanent link">&para;</a></h3>
 <p>Only Google Chrome (+derivates) and Opera support U2F authentication to this day natively.
-For Firefox you will need to install the "U2F Support Add-on" as provided on <a href="https://addons.mozilla.org/en-US/firefox/addon/u2f-support-add-on/">mozilla.org</a>.
-U2F works without an internet connection.</p>
+For Firefox you will need to install the "U2F Support Add-on" as provided on <a href="https://addons.mozilla.org/en-US/firefox/addon/u2f-support-add-on/">mozilla.org</a>.</p>
+<p>U2F works without an internet connection.</p>
 <h2 id="why-bind">Why Bind?<a class="headerlink" href="#why-bind" title="Permanent link">&para;</a></h2>
 <p>For DNS blacklist lookups and DNSSEC.</p>
 <p>Most systems use either a public or a local caching DNS resolver.
