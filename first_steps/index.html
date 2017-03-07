@@ -500,10 +500,10 @@ ln <span class="k">$(</span>readlink -f /etc/letsencrypt/live/<span class="si">$
 <p>You don't need to change the Nginx site that comes with mailcow: dockerized.
 mailcow: dockerized trusts the default gateway IP 172.22.1.1 as proxy. This is very important to control access to Rspamd's web UI.</p>
 <p>1. Make sure you change HTTP_BIND and HTTPS_BIND in <code>mailcow.conf</code> to a local address and set the ports accordingly, for example:</p>
-<div class="codehilite"><pre><span></span>HTTP_BIND=127.0.0.1
-HTTP_PORT=8080
-HTTPS_PORT=127.0.0.1
-HTTPS_PORT=8443
+<div class="codehilite"><pre><span></span><span class="nv">HTTP_BIND</span><span class="o">=</span><span class="m">127</span>.0.0.1
+<span class="nv">HTTP_PORT</span><span class="o">=</span><span class="m">8080</span>
+<span class="nv">HTTPS_PORT</span><span class="o">=</span><span class="m">127</span>.0.0.1
+<span class="nv">HTTPS_PORT</span><span class="o">=</span><span class="m">8443</span>
 </pre></div>
 
 
@@ -543,8 +543,8 @@ HTTPS_PORT=8443
     <span class="cp">[</span><span class="nx">...</span><span class="cp">]</span>
     <span class="err">your-ssl-configuration-here</span>
     <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
-        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="p">;</span>
-        <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
+        <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="o">/</span><span class="p">;</span>
+        <span class="err">proxy_redirect</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="o">/</span> <span class="err">$</span><span class="n">scheme</span><span class="o">://</span><span class="err">$</span><span class="n">host</span><span class="o">:</span><span class="err">$</span><span class="n">server_port</span><span class="o">/</span><span class="p">;</span>
         <span class="err">proxy_set_header</span> <span class="err">X-Real-IP</span> <span class="err">$remote_addr</span><span class="p">;</span>
         <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$proxy_add_x_forwarded_for</span><span class="p">;</span>
         <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-Proto</span> <span class="err">$scheme</span><span class="p">;</span>
