@@ -564,10 +564,9 @@ docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if e
 
 <h2 id="black-and-whitelist">Black and Whitelist<a class="headerlink" href="#black-and-whitelist" title="Permanent link">&para;</a></h2>
 <p>Edit a domain as (domain) administrator to add an item to the filter table.</p>
-<p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. 
-&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+<p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. </p>
 <h2 id="change-default-language">Change default language<a class="headerlink" href="#change-default-language" title="Permanent link">&para;</a></h2>
-<p>Change <code>data/conf/sogo/sogo.conf</code> and replace "English" by your prefered language.</p>
+<p>Change <code>data/conf/sogo/sogo.conf</code> and replace "English" by your preferred language.</p>
 <p>Create a file <code>data/web/inc/vars.local.inc.php</code> and add "DEFAULT_LANG" with either "en", "pt", "de" or "nl":</p>
 <div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
 <span class="nv">$DEFAULT_LANG</span> <span class="o">=</span> <span class="s2">&quot;de&quot;</span><span class="p">;</span>
@@ -844,10 +843,10 @@ docker-compose exec rspamd-mailcow rspamadm --help
 <p>1. Move this message to a subfolder "facebook" (will be created lower case if not existing)</p>
 <p>2. Prepend the tag to the subject: "[facebook] Subject"</p>
 <h2 id="two-factor-authentication">Two-factor authentication<a class="headerlink" href="#two-factor-authentication" title="Permanent link">&para;</a></h2>
-<p>So far two methods for TFA are impelemented. Both work with the fantastic <a href="https://www.yubico.com">Yubikey</a>. </p>
+<p>So far two methods for TFA are implemented. Both work with the fantastic <a href="https://www.yubico.com">Yubikey</a>.</p>
 <p>While Yubi OTP needs an active internet connection and an API ID and key, U2F will work with any FIDO U2F USB key out of the box, but can only be used when mailcow is accessed over HTTPS.</p>
-<p>Both methods support mulitple YubiKeys.</p>
-<p>As administrator you are able to temporary disable a domain adminsitrators TFA login until they successfully logged in.</p>
+<p>Both methods support multiple YubiKeys.</p>
+<p>As administrator you are able to temporary disable a domain administrators TFA login until they successfully logged in.</p>
 <p>The key used to login will be displayed in green, while other keys remain grey.</p>
 <h3 id="yubi-otp">Yubi OTP<a class="headerlink" href="#yubi-otp" title="Permanent link">&para;</a></h3>
 <p>The Yubi API ID and Key will be checked against the Yubico Cloud API. When setting up TFA you will be asked for your personal API account for this key.
