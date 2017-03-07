@@ -441,7 +441,7 @@
 <h3 id="obtain-multi-san-certificate-by-lets-encrypt">Obtain multi-SAN certificate by Let's Encrypt<a class="headerlink" href="#obtain-multi-san-certificate-by-lets-encrypt" title="Permanent link">&para;</a></h3>
 <p>This is just an example of how to obtain certificates with certbot. There are several methods!</p>
 <p>1. Get the certbot client:</p>
-<div class="codehilite"><pre><span></span>wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot &amp;&amp; chmod +x /usr/local/sbin/certbot
+<div class="codehilite"><pre><span></span>wget https://dl.eff.org/certbot-auto -O /usr/local/sbin/certbot <span class="o">&amp;&amp;</span> chmod +x /usr/local/sbin/certbot
 </pre></div>
 
 
@@ -451,24 +451,24 @@
 
 
 <p>3. Request the certificate with the webroot method:</p>
-<div class="codehilite"><pre><span></span>cd /path/to/git/clone/mailcow-dockerized
-source mailcow.conf
-certbot certonly \
-    --webroot \
-    -w <span class="cp">${</span><span class="n">PWD</span><span class="cp">}</span>/data/web \
-    -d <span class="cp">${</span><span class="n">MAILCOW_HOSTNAME</span><span class="cp">}</span> \
-    -d autodiscover.example.org \
-    -d autoconfig.example.org \
-    --email you@example.org \
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> /path/to/git/clone/mailcow-dockerized
+<span class="nb">source</span> mailcow.conf
+certbot certonly <span class="se">\</span>
+    --webroot <span class="se">\</span>
+    -w <span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/data/web <span class="se">\</span>
+    -d <span class="si">${</span><span class="nv">MAILCOW_HOSTNAME</span><span class="si">}</span> <span class="se">\</span>
+    -d autodiscover.example.org <span class="se">\</span>
+    -d autoconfig.example.org <span class="se">\</span>
+    --email you@example.org <span class="se">\</span>
     --agree-tos
 </pre></div>
 
 
 <p>4. Create hard links to the full path of the new certificates. Assuming you are still in the mailcow root folder:</p>
-<div class="codehilite"><pre><span></span>mv data/assets/ssl/cert.{pem,pem.backup}
-mv data/assets/ssl/key.{pem,pem.backup}
-ln $(readlink -f /etc/letsencrypt/live/<span class="cp">${</span><span class="n">MAILCOW_HOSTNAME</span><span class="cp">}</span>/fullchain.pem) data/assets/ssl/cert.pem
-ln $(readlink -f /etc/letsencrypt/live/<span class="cp">${</span><span class="n">MAILCOW_HOSTNAME</span><span class="cp">}</span>/privkey.pem) data/assets/ssl/key.pem
+<div class="codehilite"><pre><span></span>mv data/assets/ssl/cert.<span class="o">{</span>pem,pem.backup<span class="o">}</span>
+mv data/assets/ssl/key.<span class="o">{</span>pem,pem.backup<span class="o">}</span>
+ln <span class="k">$(</span>readlink -f /etc/letsencrypt/live/<span class="si">${</span><span class="nv">MAILCOW_HOSTNAME</span><span class="si">}</span>/fullchain.pem<span class="k">)</span> data/assets/ssl/cert.pem
+ln <span class="k">$(</span>readlink -f /etc/letsencrypt/live/<span class="si">${</span><span class="nv">MAILCOW_HOSTNAME</span><span class="si">}</span>/privkey.pem<span class="k">)</span> data/assets/ssl/key.pem
 </pre></div>
 
 
