@@ -510,27 +510,27 @@ HTTPS_PORT=8443
 <p>Recreate affected containers by running <code>docker-compose up -d</code>.</p>
 <p>2. Configure your local webserver as reverse proxy:</p>
 <h3 id="apache-24">Apache 2.4<a class="headerlink" href="#apache-24" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="nt">&lt;VirtualHost</span> <span class="err">*:443</span><span class="nt">&gt;</span>
-    ServerName mail.example.org
-    ServerAlias autodiscover.example.org
-    ServerAlias autoconfig.example.org
+<div class="codehilite"><pre><span></span><span class="nt">&lt;VirtualHost</span> <span class="s">*:443</span><span class="nt">&gt;</span>
+    <span class="nb">ServerName</span> mail.example.org
+    <span class="nb">ServerAlias</span> autodiscover.example.org
+    <span class="nb">ServerAlias</span> autoconfig.example.org
 
+    <span class="err">[</span>...<span class="err">]</span>
+    <span class="c"># You should proxy to a plain HTTP session to offload SSL processing</span>
+    <span class="nb">ProxyPass</span> / http://127.0.0.1:8080/
+    <span class="nb">ProxyPassReverse</span> / http://127.0.0.1:8080/
+    <span class="nb">ProxyPreserveHost</span> <span class="k">Off</span>
+    <span class="err">your-ssl-configuration-</span><span class="nb">here</span>
     [...]
-    # You should proxy to a plain HTTP session to offload SSL processing
-    ProxyPass / http://127.0.0.1:8080/
-    ProxyPassReverse / http://127.0.0.1:8080/
-    ProxyPreserveHost Off
-    your-ssl-configuration-here
-    [...]
 
-    # If you plan to proxy to a HTTPS host:
-    #SSLProxyEngine On
+    <span class="c"># If you plan to proxy to a HTTPS host:</span>
+    <span class="c">#SSLProxyEngine On</span>
 
-    # If you plan to proxy to an untrusted HTTPS host:
-    #SSLProxyVerify none
-    #SSLProxyCheckPeerCN off
-    #SSLProxyCheckPeerName off
-    #SSLProxyCheckPeerExpire off
+    <span class="c"># If you plan to proxy to an untrusted HTTPS host:</span>
+    <span class="c">#SSLProxyVerify none</span>
+    <span class="c">#SSLProxyCheckPeerCN off</span>
+    <span class="c">#SSLProxyCheckPeerName off</span>
+    <span class="c">#SSLProxyCheckPeerExpire off</span>
 <span class="nt">&lt;/VirtualHost&gt;</span>
 </pre></div>
 
