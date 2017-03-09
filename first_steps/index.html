@@ -546,7 +546,6 @@ mailcow: dockerized trusts the default gateway IP 172.22.1.1 as proxy. This is v
     <span class="err">location</span> <span class="err">/</span> <span class="err">{</span>
         <span class="err">proxy_pass</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="o">/</span><span class="p">;</span>
         <span class="err">proxy_redirect</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">8080</span><span class="o">/</span> <span class="err">$</span><span class="n">scheme</span><span class="o">://</span><span class="err">$</span><span class="n">host</span><span class="o">:</span><span class="err">$</span><span class="n">server_port</span><span class="o">/</span><span class="p">;</span>
-        <span class="err">proxy_set_header</span> <span class="err">Host</span> <span class="err">$host</span><span class="p">;</span>
         <span class="err">proxy_set_header</span> <span class="err">X-Real-IP</span> <span class="err">$remote_addr</span><span class="p">;</span>
         <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-For</span> <span class="err">$proxy_add_x_forwarded_for</span><span class="p">;</span>
         <span class="err">proxy_set_header</span> <span class="err">X-Forwarded-Proto</span> <span class="err">$scheme</span><span class="p">;</span>
