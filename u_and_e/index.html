@@ -250,8 +250,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#anonymize-headers" title="Anonymize headers" class="md-nav__link">
-    Anonymize headers
+  <a href="#mailcow-ui-configuration" title="mailcow UI configuration" class="md-nav__link">
+    mailcow UI configuration
   </a>
   
 </li>
@@ -293,20 +293,6 @@
         <li class="md-nav__item">
   <a href="#black-and-whitelist" title="Black and Whitelist" class="md-nav__link">
     Black and Whitelist
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#change-default-language" title="Change default language" class="md-nav__link">
-    Change default language
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#change-ui-theme" title="Change UI theme" class="md-nav__link">
-    Change UI theme
   </a>
   
 </li>
@@ -519,23 +505,19 @@
                 
                   <h1>Usage & Examples</h1>
                 
-                <h2 id="anonymize-headers">Anonymize headers<a class="headerlink" href="#anonymize-headers" title="Permanent link">&para;</a></h2>
-<p>Save as <code>data/conf/postfix/mailcow_anonymize_headers.pcre</code>:</p>
-<div class="codehilite"><pre><span></span>/^\s*Received:[^\)]+\)\s+\(Authenticated sender:(.+)/
-    REPLACE Received: from localhost (localhost [127.0.0.1]) (Authenticated sender:$1
-/^\s*User-Agent/        IGNORE
-/^\s*X-Enigmail/        IGNORE
-/^\s*X-Mailer/          IGNORE
-/^\s*X-Originating-IP/  IGNORE
-/^\s*X-Forward/         IGNORE
-</pre></div>
-
-
-<p>Add this to <code>data/conf/postfix/main.cf</code>:</p>
-<div class="codehilite"><pre><span></span>smtp_header_checks = pcre:/opt/postfix/conf/mailcow_anonymize_headers.pcre
-</pre></div>
-
-
+                <h2 id="mailcow-ui-configuration">mailcow UI configuration<a class="headerlink" href="#mailcow-ui-configuration" title="Permanent link">&para;</a></h2>
+<p>Several configuration parameters of the mailcow UI can be changed by creating a file <code>data/web/inc/vars.local.inc.php</code> which overrides defaults settings found in <code>data/web/inc/vars.inc.php</code>.</p>
+<p>The local configuration file is persistent over updates of mailcow. Try not to change values inside <code>data/web/inc/vars.inc.php</code>, but use them as template for the local override.</p>
+<p>mailcow UI configuration parameters can be to...</p>
+<ul>
+<li>...change the default language*</li>
+<li>...change the default bootstrap theme</li>
+<li>...set a password complexity regex</li>
+<li>...add mailcow app buttons to the login screen</li>
+<li>...set a pagination trigger</li>
+<li>...set action after submitting forms (stay in form, return to previous page)</li>
+</ul>
+<p>* To change SOGos default language, you will need to edit <code>data/conf/sogo/sogo.conf</code> and replace "English" by your preferred language.</p>
 <h2 id="backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)<a class="headerlink" href="#backup-and-restore-maildir-simple-tar-file" title="Permanent link">&para;</a></h2>
 <h3 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h3>
 <p>This line backups the vmail directory to a file backup_vmail.tar.gz in the mailcow root directory:</p>
@@ -565,22 +547,6 @@ docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if e
 <h2 id="black-and-whitelist">Black and Whitelist<a class="headerlink" href="#black-and-whitelist" title="Permanent link">&para;</a></h2>
 <p>Edit a domain as (domain) administrator to add an item to the filter table.</p>
 <p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. </p>
-<h2 id="change-default-language">Change default language<a class="headerlink" href="#change-default-language" title="Permanent link">&para;</a></h2>
-<p>Change <code>data/conf/sogo/sogo.conf</code> and replace "English" by your preferred language.</p>
-<p>Create a file <code>data/web/inc/vars.local.inc.php</code> and add "DEFAULT_LANG" with either "en", "pt", "de" or "nl":</p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="nv">$DEFAULT_LANG</span> <span class="o">=</span> <span class="s2">&quot;de&quot;</span><span class="p">;</span>
-</pre></div>
-
-
-<h2 id="change-ui-theme">Change UI theme<a class="headerlink" href="#change-ui-theme" title="Permanent link">&para;</a></h2>
-<p>mailcow uses <a href="http://getbootstrap.com/">Bootstrap</a>, a HTML, CSS, and JS framework.</p>
-<p>Open or create the file <code>data/web/inc/vars.local.inc.php</code> and change <code>DEFAULT_THEME</code> to either cerulean, cosmo, custom, cyborg, darkly, flatly, journal, paper, readable, sandstone, simplex, slate, spacelab, superhero, united or yeti (see https://bootswatch.com/):</p>
-<div class="codehilite"><pre><span></span><span class="cp">&lt;?php</span>
-<span class="nv">$DEFAULT_THEME</span> <span class="o">=</span> <span class="s2">&quot;paper&quot;</span><span class="p">;</span>
-</pre></div>
-
-
 <h2 id="customize-dockerfiles">Customize Dockerfiles<a class="headerlink" href="#customize-dockerfiles" title="Permanent link">&para;</a></h2>
 <p>Make your changes in <code>data/Dockerfiles/$service</code> and build the image locally:</p>
 <div class="codehilite"><pre><span></span>docker build data/Dockerfiles/service -t andryyy/mailcow-dockerized:$service
