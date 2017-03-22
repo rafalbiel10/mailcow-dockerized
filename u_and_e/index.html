@@ -572,8 +572,8 @@ docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if e
 </pre></div>
 
 
-<p>Open <code>data/conf/postfix/main.cf</code> and find <code>smtpd_sender_restrictions</code>. Prepend <code>check_sasl_access hash:/opt/postfix/conf/check_sender_access</code> like this:</p>
-<div class="codehilite"><pre><span></span>smtpd_sender_restrictions = check_sasl_access hash:/opt/postfix/conf/check_sender_access reject_authenticated_sender [...]
+<p>Open <code>data/conf/postfix/main.cf</code> and find <code>smtpd_sender_restrictions</code>. Prepend <code>check_sender_access hash:/opt/postfix/conf/check_sender_access</code> like this:</p>
+<div class="codehilite"><pre><span></span>smtpd_sender_restrictions = check_sender_access hash:/opt/postfix/conf/check_sender_access reject_authenticated_sender [...]
 </pre></div>
 
 
