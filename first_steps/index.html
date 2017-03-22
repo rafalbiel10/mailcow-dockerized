@@ -490,6 +490,7 @@ ln <span class="k">$(</span>readlink -f /etc/letsencrypt/live/<span class="si">$
 </pre></div>
 
 
+<p>You can use <code>password = "myhash";</code> instead of <code>enable_password</code> to disable write-access in the web UI.</p>
 <p>3. Restart rspamd:</p>
 <div class="codehilite"><pre><span></span>docker-compose restart rspamd-mailcow
 </pre></div>

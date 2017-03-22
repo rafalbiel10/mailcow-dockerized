@@ -429,6 +429,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#learn-ham-or-spam-from-existing-directory" title="Learn ham or spam from existing directory" class="md-nav__link">
+    Learn ham or spam from existing directory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#cli-tools" title="CLI tools" class="md-nav__link">
     CLI tools
   </a>
@@ -570,8 +577,8 @@ docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if e
 </pre></div>
 
 
-<p>Run postmap on check_sasl_access:</p>
-<div class="codehilite"><pre><span></span>docker-compose exec postfix-mailcow postmap /opt/postfix/conf/check_sasl_access
+<p>Run postmap on check_sender_access:</p>
+<div class="codehilite"><pre><span></span>docker-compose exec postfix-mailcow postmap /opt/postfix/conf/check_sender_access
 </pre></div>
 
 
@@ -724,6 +731,20 @@ This is archived by using the Dovecot plugin "antispam" and a simple parser scri
 <p>Rspamd also auto-learns mail when a high or low score is detected (see https://rspamd.com/doc/configuration/statistic.html#autolearning)</p>
 <p>The bayes statistics are written to Redis as keys <code>BAYES_HAM</code> and <code>BAYES_SPAM</code>.</p>
 <p>You can also use Rspamd's web ui to learn ham and/or spam.</p>
+<h3 id="learn-ham-or-spam-from-existing-directory">Learn ham or spam from existing directory<a class="headerlink" href="#learn-ham-or-spam-from-existing-directory" title="Permanent link">&para;</a></h3>
+<p>You can use a one-liner to learn mail in plain-text (uncompressed) format:</p>
+<div class="codehilite"><pre><span></span># Ham
+for file in /my/folder/cur/*; do docker exec -i $(docker-compose ps -q rspamd-mailcow) rspamc learn_ham &lt; $file; done
+# Spam
+for file in /my/folder/.Junk/cur/*; do docker exec -i $(docker-compose ps -q rspamd-mailcow) rspamc learn_spam &lt; $file; done
+</pre></div>
+
+
+<p>Consider attaching a local folder as new volume to <code>rspamd-mailcow</code> in <code>docker-compose.yml</code> and learn given files inside the container. This can be used as workaround to parse compressed data with zcat. Example:</p>
+<div class="codehilite"><pre><span></span>for file in /data/old_mail/.Junk/cur/*; do rspamc learn_spam &lt; zcat $file; done
+</pre></div>
+
+
 <h3 id="cli-tools">CLI tools<a class="headerlink" href="#cli-tools" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>docker-compose exec rspamd-mailcow rspamc --help
 docker-compose exec rspamd-mailcow rspamadm --help
