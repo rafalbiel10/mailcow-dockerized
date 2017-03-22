@@ -567,18 +567,18 @@ docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if e
 
 <h2 id="disable-sender-addresses-verification">Disable sender addresses verification<a class="headerlink" href="#disable-sender-addresses-verification" title="Permanent link">&para;</a></h2>
 <p>This option is not best-practice and should only be implemented when there is no other option available to archive whatever you are trying to do.</p>
-<p>Simply create a file <code>data/conf/postfix/check_sender_access</code> and enter the following content:</p>
+<p>Simply create a file <code>data/conf/postfix/check_sasl_access</code> and enter the following content. This user must exist in your installation and needs to authenticate before sending mail.</p>
 <div class="codehilite"><pre><span></span>user-to-allow-everything@example.com OK
 </pre></div>
 
 
-<p>Open <code>data/conf/postfix/main.cf</code> and find <code>smtpd_sender_restrictions</code>. Prepend <code>check_sender_access hash:/opt/postfix/conf/check_sender_access</code> like this:</p>
-<div class="codehilite"><pre><span></span>smtpd_sender_restrictions = check_sender_access hash:/opt/postfix/conf/check_sender_access reject_authenticated_sender [...]
+<p>Open <code>data/conf/postfix/main.cf</code> and find <code>smtpd_sender_restrictions</code>. Prepend <code>check_sasl_access hash:/opt/postfix/conf/check_sasl_access</code> like this:</p>
+<div class="codehilite"><pre><span></span>smtpd_sender_restrictions = check_sasl_access hash:/opt/postfix/conf/check_sasl_access reject_authenticated_sender_login_mismatch [...]
 </pre></div>
 
 
-<p>Run postmap on check_sender_access:</p>
-<div class="codehilite"><pre><span></span>docker-compose exec postfix-mailcow postmap /opt/postfix/conf/check_sender_access
+<p>Run postmap on check_sasl_access:</p>
+<div class="codehilite"><pre><span></span>docker-compose exec postfix-mailcow postmap /opt/postfix/conf/check_sasl_access
 </pre></div>
 
 
