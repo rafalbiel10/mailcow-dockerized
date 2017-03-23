@@ -265,22 +265,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#step-1-method-1" title="Step 1, Method 1" class="md-nav__link">
-    Step 1, Method 1
+  <a href="#step-1-method-1" title="Step 1, method 1" class="md-nav__link">
+    Step 1, method 1
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-1-method-2" title="Step 1, Method 2" class="md-nav__link">
-    Step 1, Method 2
+  <a href="#step-1-method-2" title="Step 1, method 2" class="md-nav__link">
+    Step 1, method 2
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#step-1-method-3" title="Step 1, Method 3" class="md-nav__link">
-    Step 1, Method 3
+  <a href="#step-1-method-3" title="Step 1, method 3" class="md-nav__link">
+    Step 1, method 3
   </a>
   
 </li>
@@ -368,7 +368,7 @@ docker-compose up -d
 <p>The database will be initialized right after a connection to MySQL can be established.</p>
 <h2 id="update-mailcow">Update mailcow<a class="headerlink" href="#update-mailcow" title="Permanent link">&para;</a></h2>
 <p>There is no update routine. You need to refresh your pulled repository clone and apply your local changes (if any). Actually there are many ways to merge local changes.</p>
-<h3 id="step-1-method-1">Step 1, Method 1<a class="headerlink" href="#step-1-method-1" title="Permanent link">&para;</a></h3>
+<h3 id="step-1-method-1">Step 1, method 1<a class="headerlink" href="#step-1-method-1" title="Permanent link">&para;</a></h3>
 <p>Stash all local changes, pull changes from the remote master branch and apply your stash on top of it. You will most likely see warnings about non-commited changes; you can ignore them:</p>
 <div class="codehilite"><pre><span></span># Stash local changes
 git stash
@@ -379,7 +379,7 @@ git stash pop
 </pre></div>
 
 
-<h3 id="step-1-method-2">Step 1, Method 2<a class="headerlink" href="#step-1-method-2" title="Permanent link">&para;</a></h3>
+<h3 id="step-1-method-2">Step 1, method 2<a class="headerlink" href="#step-1-method-2" title="Permanent link">&para;</a></h3>
 <p>Fetch new data from GitHub, commit changes and merge remote repository: </p>
 <div class="codehilite"><pre><span></span># Get updates/changes
 git fetch
@@ -398,19 +398,23 @@ git merge
 
 
 <p>Open <code>data/web/index.php</code>, solve the conflict, close the file and run <code>git add -A</code> + <code>git commit -m "Solved conflict"</code>.</p>
-<h3 id="step-1-method-3">Step 1, Method 3<a class="headerlink" href="#step-1-method-3" title="Permanent link">&para;</a></h3>
+<h3 id="step-1-method-3">Step 1, method 3<a class="headerlink" href="#step-1-method-3" title="Permanent link">&para;</a></h3>
 <p>Thanks to fabreg @ GitHub!</p>
-<p>In case both methods do not work (for many reason like you're unable to fix the CONFLICTS or any other reasons) you can simply...</p>
+<p>In case both methods do not work (for many reason like you're unable to fix the CONFLICTS or any other reasons) you can simply start all over again.</p>
+<p>Keep in mind that all local changes <em>to configuration files</em> will be lost. However, your volumes will not be removed.</p>
 <ul>
-<li>Copy mailcow.conf somewhere outside the mailcow-dockerized</li>
-<li>Stop docker: <code>docker-compose down</code></li>
+<li>Copy mailcow.conf somewhere outside the mailcow-dockerized directory</li>
+<li>Stop and remove mailcow containers: <code>docker-compose down</code></li>
 <li>Delete the directory or rename it</li>
-<li>Clone the remote repository again (<code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</code>)</li>
-<li>Copy back your previous <code>mailcow.conf</code> into mailcow-dockerizd folder (pay attention to this step - the folder must have the same name of the previous one)</li>
+<li>Clone the remote repository again (<code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</code>). <strong>Pay attention</strong> to this step - the folder must have the same name of the previous one!</li>
+<li>Copy back your previous <code>mailcow.conf</code> into the mailcow-dockerizd folder </li>
 </ul>
-<p>*If you forgot to stop Docker before deleting the cloned directoy you can use these following command
-docker stop $(docker ps -a -q)
-docker rm $(docker ps -a -q)</p>
+<p>If you forgot to stop Docker before deleting the cloned directoy, you can use the following commands:</p>
+<div class="codehilite"><pre><span></span>docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+</pre></div>
+
+
 <h3 id="step-2">Step 2<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h3>
 <p>Pull new images (if any) and recreate changed containers:</p>
 <div class="codehilite"><pre><span></span>docker-compose pull
