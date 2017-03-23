@@ -261,6 +261,47 @@
     Update mailcow
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-method-1" title="Step 1, Method 1" class="md-nav__link">
+    Step 1, Method 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-method-2" title="Step 1, Method 2" class="md-nav__link">
+    Step 1, Method 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-method-3" title="Step 1, Method 3" class="md-nav__link">
+    Step 1, Method 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2" title="Step 2" class="md-nav__link">
+    Step 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3" title="Step 3" class="md-nav__link">
+    Step 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -326,8 +367,9 @@ docker-compose up -d
 <p>You can now access <strong>https://${MAILCOW_HOSTNAME}</strong> with the default credentials <code>admin</code> + password <code>moohoo</code>.</p>
 <p>The database will be initialized right after a connection to MySQL can be established.</p>
 <h2 id="update-mailcow">Update mailcow<a class="headerlink" href="#update-mailcow" title="Permanent link">&para;</a></h2>
-<p>There is no update routine. You need to refresh your pulled repository clone and apply your local changes (if any). Actually there are many ways to merge local changes. Here is one to
-stash all local changes, pull changes from the remote master branch and apply your stash on top of it. You will most likely see warnings about non-commited changes; you can ignore them:</p>
+<p>There is no update routine. You need to refresh your pulled repository clone and apply your local changes (if any). Actually there are many ways to merge local changes.</p>
+<h3 id="step-1-method-1">Step 1, Method 1<a class="headerlink" href="#step-1-method-1" title="Permanent link">&para;</a></h3>
+<p>Stash all local changes, pull changes from the remote master branch and apply your stash on top of it. You will most likely see warnings about non-commited changes; you can ignore them:</p>
 <div class="codehilite"><pre><span></span># Stash local changes
 git stash
 # Re-pull master
@@ -337,12 +379,45 @@ git stash pop
 </pre></div>
 
 
+<h3 id="step-1-method-2">Step 1, Method 2<a class="headerlink" href="#step-1-method-2" title="Permanent link">&para;</a></h3>
+<p>Fetch new data from GitHub, commit changes and merge remote repository: </p>
+<div class="codehilite"><pre><span></span># Get updates/changes
+git fetch
+# Add all changed files to local clone
+git add -A
+# Commit changes, ignore git complaining about username and mail address
+git commit -m &quot;Local config aat $(date)&quot;
+# Merge changes
+git merge
+</pre></div>
+
+
+<p>If git complains about conflicts, solve them! Example:</p>
+<div class="codehilite"><pre><span></span>CONFLICT (content): Merge conflict in data/web/index.php
+</pre></div>
+
+
+<p>Open <code>data/web/index.php</code>, solve the conflict, close file and run <code>git add -A</code> + <code>git commit -m "Solved conflict"</code>.</p>
+<h3 id="step-1-method-3">Step 1, Method 3<a class="headerlink" href="#step-1-method-3" title="Permanent link">&para;</a></h3>
+<p>In case both methods do not work (for many reason like you're unable to fix the CONFLICTS or any other reasons) you can simply...</p>
+<ul>
+<li>Copy mailcow.conf somewhere outside the mailcow-dockerized</li>
+<li>Stop docker: <code>docker-compose down</code></li>
+<li>Delete the directory or rename it</li>
+<li>Clone the remote repository again (<code>git clone https://github.com/andryyy/mailcow-dockerized &amp;&amp; cd mailcow-dockerized</code>)</li>
+<li>Copy back your previous <code>mailcow.conf</code> into mailcow-dockerizd folder (pay attention to this step - the folder must have the same name of the previous one)</li>
+</ul>
+<p>*If you forgot to stop Docker before deleting the cloned directoy you can use these following command
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)</p>
+<h3 id="step-2">Step 2<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h3>
 <p>Pull new images (if any) and recreate changed containers:</p>
 <div class="codehilite"><pre><span></span>docker-compose pull
 docker-compose up -d --remove-orphans
 </pre></div>
 
 
+<h3 id="step-3">Step 3<a class="headerlink" href="#step-3" title="Permanent link">&para;</a></h3>
 <p>Clean-up dangling (unused) images and volumes:</p>
 <div class="codehilite"><pre><span></span>docker rmi -f $(docker images -f &quot;dangling=true&quot; -q)
 docker volume rm $(docker volume ls -qf dangling=true)
