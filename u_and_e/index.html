@@ -257,6 +257,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#anonymize-headers" title="Anonymize headers" class="md-nav__link">
+    Anonymize headers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#backup-and-restore-maildir-simple-tar-file" title="Backup and restore maildir (simple tar file)" class="md-nav__link">
     Backup and restore maildir (simple tar file)
   </a>
@@ -525,6 +532,23 @@
 <li>...set action after submitting forms (stay in form, return to previous page)</li>
 </ul>
 <p>* To change SOGos default language, you will need to edit <code>data/conf/sogo/sogo.conf</code> and replace "English" by your preferred language.</p>
+<h2 id="anonymize-headers">Anonymize headers<a class="headerlink" href="#anonymize-headers" title="Permanent link">&para;</a></h2>
+<p>Save as <code>data/conf/postfix/mailcow_anonymize_headers.pcre</code>:</p>
+<div class="codehilite"><pre><span></span>/^\s*Received:[^\)]+\)\s+\(Authenticated sender:(.+)/
+    REPLACE Received: from localhost (localhost [127.0.0.1]) (Authenticated sender:$1
+/^\s*User-Agent/        IGNORE
+/^\s*X-Enigmail/        IGNORE
+/^\s*X-Mailer/          IGNORE
+/^\s*X-Originating-IP/  IGNORE
+/^\s*X-Forward/         IGNORE
+</pre></div>
+
+
+<p>Add this to <code>data/conf/postfix/main.cf</code>:</p>
+<div class="codehilite"><pre><span></span>smtp_header_checks = pcre:/opt/postfix/conf/mailcow_anonymize_headers.pcre
+</pre></div>
+
+
 <h2 id="backup-and-restore-maildir-simple-tar-file">Backup and restore maildir (simple tar file)<a class="headerlink" href="#backup-and-restore-maildir-simple-tar-file" title="Permanent link">&para;</a></h2>
 <h3 id="backup">Backup<a class="headerlink" href="#backup" title="Permanent link">&para;</a></h3>
 <p>This line backups the vmail directory to a file backup_vmail.tar.gz in the mailcow root directory:</p>
