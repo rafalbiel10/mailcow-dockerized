@@ -283,6 +283,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#install-a-local-mta" title="Install a local MTA" class="md-nav__link">
+    Install a local MTA
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sender-and-receiver-model" title="Sender and receiver model" class="md-nav__link">
     Sender and receiver model
   </a>
@@ -390,6 +397,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-a-local-mta" title="Install a local MTA" class="md-nav__link">
+    Install a local MTA
+  </a>
   
 </li>
       
@@ -556,6 +570,14 @@ mailcow: dockerized trusts the default gateway IP 172.22.1.1 as proxy. This is v
 </pre></div>
 
 
+<h2 id="install-a-local-mta">Install a local MTA<a class="headerlink" href="#install-a-local-mta" title="Permanent link">&para;</a></h2>
+<p>The easiest option would be to disable the listener on port 25/tcp.</p>
+<p><strong>Postfix</strong> users disable the listener by commenting the following line (starting with <code>smtp</code> or <code>25</code>) in <code>/etc/postfix/master.cf</code>:</p>
+<div class="codehilite"><pre><span></span>#smtp      inet  n       -       -       -       -       smtpd
+</pre></div>
+
+
+<p>Restart Postfix after applying your changes and fire-up the cow.</p>
 <h2 id="sender-and-receiver-model">Sender and receiver model<a class="headerlink" href="#sender-and-receiver-model" title="Permanent link">&para;</a></h2>
 <p>When a mailbox is created, a user is allowed to send mail from and receive mail for his own mailbox address.</p>
 <div class="codehilite"><pre><span></span>Mailbox me@example.org is created. example.org is a primary domain. 
