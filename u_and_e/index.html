@@ -367,6 +367,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#reset-mysql-passwords" title="Reset MySQL passwords" class="md-nav__link">
+    Reset MySQL passwords
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -706,10 +713,50 @@ docker-compose exec mysql-mailcow mysql -u<span class="cp">${</span><span class=
 </pre></div>
 
 
+<h3 id="reset-mysql-passwords">Reset MySQL passwords<a class="headerlink" href="#reset-mysql-passwords" title="Permanent link">&para;</a></h3>
+<p>Stop the stack by running <code>docker-compose stop</code>.</p>
+<p>When the containers came to a stop, run this command:</p>
+<div class="codehilite"><pre><span></span>docker-compose run --rm --entrypoint &#39;/bin/sh -c &quot;gosu mysql mysqld --skip-grant-tables &amp; sleep 10 &amp;&amp; mysql -hlocalhost -uroot &amp;&amp; exit 0&quot;&#39; mysql-mailcow
+</pre></div>
+
+
+<p><strong>1. Find database name</strong></p>
+<div class="codehilite"><pre><span></span>MariaDB [(none)]&gt; show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mailcow_database   | &lt;=====
+| mysql              |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+</pre></div>
+
+
+<p>**2. Reset one or more users</p>
+<p>Both "password" and "authentication_string" exist. Currently "password" is used, but better set both.</p>
+<div class="codehilite"><pre><span></span>MariaDB [(none)]&gt; SELECT user FROM mysql.user;
++--------------+
+| user         |
++--------------+
+| mailcow_user | &lt;===== 
+| root         |
++--------------+
+2 rows in set (0.00 sec)
+
+MariaDB [(none)]&gt; FLUSH PRIVILEGES;
+MariaDB [(none)]&gt; UPDATE mysql.user SET authentication_string = PASSWORD(&#39;gotr00t&#39;), password = PASSWORD(&#39;gotr00t&#39;) WHERE User = &#39;root&#39; AND Host = &#39;%&#39;;
+MariaDB [(none)]&gt; UPDATE mysql.user SET authentication_string = PASSWORD(&#39;mookuh&#39;), password = PASSWORD(&#39;mookuh&#39;) WHERE User = &#39;mailcow&#39; AND Host = &#39;%&#39;;
+MariaDB [(none)]&gt; FLUSH PRIVILEGES;
+</pre></div>
+
+
 <h2 id="debugging">Debugging<a class="headerlink" href="#debugging" title="Permanent link">&para;</a></h2>
 <p>You can use <code>docker-compose logs $service-name</code> for all containers.</p>
 <p>Run <code>docker-compose logs</code> for all logs at once.</p>
 <p>Follow the log output by running docker-compose with <code>logs -f</code>.</p>
+<p>Limit the output by calling logs with <code>--tail=300</code> like <code>docker-compose logs --tail=300 mysql-mailcow</code>.</p>
 <h2 id="redirect-port-80-to-443">Redirect port 80 to 443<a class="headerlink" href="#redirect-port-80-to-443" title="Permanent link">&para;</a></h2>
 <p>Since February the 28th 2017 mailcow does come with port 80 and 443 enabled.</p>
 <p>Open <code>mailcow.conf</code> and set <code>HTTP_BIND=0.0.0.0</code>.</p>
