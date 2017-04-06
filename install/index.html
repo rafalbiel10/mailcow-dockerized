@@ -322,6 +322,7 @@
                   <h1>Installation</h1>
                 
                 <h2 id="install-mailcow">Install mailcow<a class="headerlink" href="#install-mailcow" title="Permanent link">&para;</a></h2>
+<p><strong>WARNING</strong>: Please use Ubuntu 16.04 instead of Debian 8 or <a href="https://packages.debian.org/jessie-backports/linux-image-amd64">switch to the kernel 4.9 from jessie backports</a> because there is a bug (kernel panic) with the kernel 3.16 when running docker containers with healthchecks! Full details here: <a href="https://github.com/docker/docker/issues/30402">github.com/docker/docker/issues/30402</a> and <a href="https://forum.mailcow.email/t/solved-mailcow-docker-causes-kernel-panic-edit/448">forum.mailcow.email/t/solved-mailcow-docker-causes-kernel-panic-edit/448</a></p>
 <p>You need Docker and Docker Compose.</p>
 <p>1. Learn how to install <a href="https://docs.docker.com/engine/installation/linux/">Docker</a> and <a href="https://docs.docker.com/compose/install/">Docker Compose</a>.</p>
 <p>Quick installation for most operation systems:</p>
