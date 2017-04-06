@@ -283,6 +283,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optional-setup-a-relayhost" title="Optional: Setup a relayhost" class="md-nav__link">
+    Optional: Setup a relayhost
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-a-local-mta" title="Install a local MTA" class="md-nav__link">
     Install a local MTA
   </a>
@@ -397,6 +404,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-setup-a-relayhost" title="Optional: Setup a relayhost" class="md-nav__link">
+    Optional: Setup a relayhost
+  </a>
   
 </li>
       
@@ -567,6 +581,27 @@ mailcow: dockerized trusts the default gateway IP 172.22.1.1 as proxy. This is v
     <span class="p">}</span>
     <span class="cp">[</span><span class="nx">...</span><span class="cp">]</span>
 <span class="err">}</span>
+</pre></div>
+
+
+<h2 id="optional-setup-a-relayhost">Optional: Setup a relayhost<a class="headerlink" href="#optional-setup-a-relayhost" title="Permanent link">&para;</a></h2>
+<p>Insert these lines to <code>data/conf/postfix/main.cf</code>. "relayhost" does already exist (empty), just change its value.</p>
+<div class="codehilite"><pre><span></span>relayhost = [your-relayhost]:587
+smtp_sasl_password_maps = hash:/opt/postfix/conf/smarthost_passwd
+smtp_sasl_auth_enable = yes
+</pre></div>
+
+
+<p>Create the credentials file:</p>
+<div class="codehilite"><pre><span></span>echo &quot;your-relayhost username:password&quot; &gt; data/conf/postfix/smarthost_passwd
+</pre></div>
+
+
+<p>Run:</p>
+<div class="codehilite"><pre><span></span>docker-compose exec postfix-mailcow postmap /opt/postfix/conf/smarthost_passwd
+docker-compose exec postfix-mailcow chown root:postfix /opt/postfix/conf/smarthost_passwd /opt/postfix/conf/smarthost_passwd.db
+docker-compose exec postfix-mailcow chmod 660 /opt/postfix/conf/smarthost_passwd /opt/postfix/conf/smarthost_passwd.db
+docker-compose exec postfix-mailcow postfix reload
 </pre></div>
 
 
