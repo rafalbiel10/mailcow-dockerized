@@ -294,12 +294,18 @@
     Optional: Log to Syslog
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#use-fail2ban" title="Use Fail2ban" class="md-nav__link">
     Use Fail2ban
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -433,12 +439,18 @@
     Optional: Log to Syslog
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#use-fail2ban" title="Use Fail2ban" class="md-nav__link">
     Use Fail2ban
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -672,16 +684,25 @@ The first empty ExecStart parameter is not a mistake.</p>
 
 
 <p>Restart the Docker daemon and run <code>docker-compose down &amp;&amp; docker-compose up -d</code> to recreate the containers.</p>
-<h2 id="use-fail2ban">Use Fail2ban<a class="headerlink" href="#use-fail2ban" title="Permanent link">&para;</a></h2>
+<h3 id="use-fail2ban">Use Fail2ban<a class="headerlink" href="#use-fail2ban" title="Permanent link">&para;</a></h3>
 <p>Open /etc/fail2ban/filter.d/common.conf and search for the prefix_line parameter, change it to ".*":</p>
 <div class="codehilite"><pre><span></span>__prefix_line = .*
 </pre></div>
 
 
-<p>Create /etc/fail2ban/jail.d/dovecot.conf with the following content:</p>
+<p>Create <code>/etc/fail2ban/jail.d/dovecot.conf</code>...</p>
 <div class="codehilite"><pre><span></span><span class="k">[dovecot]</span>
 <span class="na">enabled</span> <span class="o">=</span> <span class="s">true</span>
 <span class="na">filter</span>  <span class="o">=</span> <span class="s">dovecot</span>
+<span class="na">logpath</span> <span class="o">=</span> <span class="s">/var/log/syslog</span>
+<span class="na">chain</span> <span class="o">=</span> <span class="s">FORWARD</span>
+</pre></div>
+
+
+<p>and <code>jail.d/postfix-sasl.conf</code>:</p>
+<div class="codehilite"><pre><span></span><span class="k">[postfix-sasl]</span>
+<span class="na">enabled</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">filter</span>  <span class="o">=</span> <span class="s">postfix-sasl</span>
 <span class="na">logpath</span> <span class="o">=</span> <span class="s">/var/log/syslog</span>
 <span class="na">chain</span> <span class="o">=</span> <span class="s">FORWARD</span>
 </pre></div>
