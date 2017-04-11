@@ -290,6 +290,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#optional-log-to-syslog" title="Optional: Log to Syslog" class="md-nav__link">
+    Optional: Log to Syslog
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-fail2ban" title="Use Fail2ban" class="md-nav__link">
+    Use Fail2ban
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-a-local-mta" title="Install a local MTA" class="md-nav__link">
     Install a local MTA
   </a>
@@ -410,6 +424,20 @@
         <li class="md-nav__item">
   <a href="#optional-setup-a-relayhost" title="Optional: Setup a relayhost" class="md-nav__link">
     Optional: Setup a relayhost
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-log-to-syslog" title="Optional: Log to Syslog" class="md-nav__link">
+    Optional: Log to Syslog
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-fail2ban" title="Use Fail2ban" class="md-nav__link">
+    Use Fail2ban
   </a>
   
 </li>
@@ -605,6 +633,61 @@ docker-compose exec postfix-mailcow postfix reload
 </pre></div>
 
 
+<h2 id="optional-log-to-syslog">Optional: Log to Syslog<a class="headerlink" href="#optional-log-to-syslog" title="Permanent link">&para;</a></h2>
+<p>Enable Rsyslog to receive logs on 524/tcp:</p>
+<div class="codehilite"><pre><span></span># This setting depends on your Rsyslog version and configuration format.
+# For most Debian derivates it will work like this...
+$ModLoad imtcp
+$TCPServerAddress 127.0.0.1
+$InputTCPServerRun 524
+
+# ...while for Ubuntu 16.04 it looks like this:
+module(load=&quot;imtcp&quot;)
+input(type=&quot;imtcp&quot; address=&quot;127.0.0.1&quot; port=&quot;524&quot;)
+
+# No matter your Rsyslog version, you should set this option to off
+# if you plan to use Fail2ban
+$RepeatedMsgReduction off
+</pre></div>
+
+
+<p>Restart rsyslog after enabling the TCP listener.</p>
+<p>Now setup Docker daemon to start with the syslog driver.
+This enables the syslog driver for all containers!</p>
+<p>Debian users can change the startup configuration in <code>/etc/default/docker</code> while CentOS users find it in <code>/etc/sysconfig/docker</code>:</p>
+<div class="codehilite"><pre><span></span>...
+DOCKER_OPTS=&quot;--log-driver=syslog --log-opt syslog-address=tcp://127.0.0.1:524&quot;
+...
+</pre></div>
+
+
+<p><strong>Caution:</strong> For some reason Ubuntu 16.04 and some, but not all, systemd based distros do not read the defaults file parameters.</p>
+<p>Just run <code>systemctl edit docker.service</code> and add the following content to fix it.
+The first empty ExecStart parameter is not a mistake.</p>
+<div class="codehilite"><pre><span></span><span class="k">[Service]</span>
+<span class="na">EnvironmentFile</span><span class="o">=</span><span class="s">/etc/default/docker</span>
+<span class="na">ExecStart</span><span class="o">=</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/docker daemon -H fd:// $DOCKER_OPTS</span>
+</pre></div>
+
+
+<p>Restart the Docker daemon and run <code>docker-compose down &amp;&amp; docker-compose up -d</code> to recreate the containers.</p>
+<h2 id="use-fail2ban">Use Fail2ban<a class="headerlink" href="#use-fail2ban" title="Permanent link">&para;</a></h2>
+<p>Open /etc/fail2ban/filter.d/common.conf and search for the prefix_line parameter, change it to ".*":</p>
+<div class="codehilite"><pre><span></span>__prefix_line = .*
+</pre></div>
+
+
+<p>Create /etc/fail2ban/jail.d/dovecot.conf with the following content:</p>
+<div class="codehilite"><pre><span></span><span class="k">[dovecot]</span>
+<span class="na">enabled</span> <span class="o">=</span> <span class="s">true</span>
+<span class="na">filter</span>  <span class="o">=</span> <span class="s">dovecot</span>
+<span class="na">logpath</span> <span class="o">=</span> <span class="s">/var/log/syslog</span>
+<span class="na">chain</span> <span class="o">=</span> <span class="s">FORWARD</span>
+</pre></div>
+
+
+<p>Restart Fail2ban.</p>
 <h2 id="install-a-local-mta">Install a local MTA<a class="headerlink" href="#install-a-local-mta" title="Permanent link">&para;</a></h2>
 <p>The easiest option would be to disable the listener on port 25/tcp.</p>
 <p><strong>Postfix</strong> users disable the listener by commenting the following line (starting with <code>smtp</code> or <code>25</code>) in <code>/etc/postfix/master.cf</code>:</p>
