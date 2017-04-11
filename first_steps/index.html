@@ -685,7 +685,7 @@ The first empty ExecStart parameter is not a mistake.</p>
 
 <p>Restart the Docker daemon and run <code>docker-compose down &amp;&amp; docker-compose up -d</code> to recreate the containers.</p>
 <h3 id="use-fail2ban">Use Fail2ban<a class="headerlink" href="#use-fail2ban" title="Permanent link">&para;</a></h3>
-<p>Open /etc/fail2ban/filter.d/common.conf and search for the prefix_line parameter, change it to ".*":</p>
+<p>Open <code>/etc/fail2ban/filter.d/common.conf</code> and search for the prefix_line parameter, change it to ".*":</p>
 <div class="codehilite"><pre><span></span>__prefix_line = .*
 </pre></div>
 
