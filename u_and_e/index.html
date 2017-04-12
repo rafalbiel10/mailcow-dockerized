@@ -587,7 +587,7 @@ docker run --rm -it -v $(docker inspect --format &#39;{{ range .Mounts }}{{ if e
 <p>Beware that a mailbox user can login to mailcow and override a domain policy filter item. </p>
 <h2 id="customize-dockerfiles">Customize Dockerfiles<a class="headerlink" href="#customize-dockerfiles" title="Permanent link">&para;</a></h2>
 <p>Make your changes in <code>data/Dockerfiles/$service</code> and build the image locally:</p>
-<div class="codehilite"><pre><span></span>docker build data/Dockerfiles/service -t andryyy/mailcow-dockerized:$service
+<div class="codehilite"><pre><span></span>docker build data/Dockerfiles/service -t mailcow/$service
 </pre></div>
 
 
