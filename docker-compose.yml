@@ -1,4 +1,4 @@
-version: '2.1'
+version: '2.2'
 
 services:
     bind9-mailcow:
@@ -15,6 +15,19 @@ services:
           ipv4_address: 172.22.1.254
           aliases:
             - bind9
+            
+    portainer-mailcow:
+      image: portainer/portainer
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      restart: always
+      dns:
+        - 172.22.1.254
+      dns_search: mailcow-network
+      networks:
+        mailcow-network:
+          aliases:
+            - portainer
 
     mysql-mailcow:
       image: mariadb:10.1
